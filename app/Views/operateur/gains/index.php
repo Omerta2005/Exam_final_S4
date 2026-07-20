@@ -13,21 +13,33 @@
         }
         .filter-card {
             background: white; border-radius: 14px; padding: 1.2rem 1.5rem;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.05); margin: -1.5rem auto 2rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05); margin-bottom: 2rem;
         }
-        .total-card {
+        .total-global {
             background: white; border-radius: 16px; padding: 2rem;
             box-shadow: 0 4px 14px rgba(0,0,0,0.05); text-align: center; margin-bottom: 2rem;
         }
-        .total-amount { font-size: 2.2rem; font-weight: 700; color: #2c7be5; }
-        .type-card {
-            background: white; border-radius: 14px; padding: 1.5rem;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.05); margin-bottom: 1rem;
-            display: flex; justify-content: space-between; align-items: center;
+        .total-global .amount { font-size: 2.2rem; font-weight: 700; color: #2c7be5; }
+
+        .operateur-block {
+            background: white; border-radius: 16px; padding: 1.8rem;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05); margin-bottom: 1.5rem;
         }
-        .type-name { font-weight: 600; font-size: 1.1rem; }
-        .type-count { color: #667085; font-size: 0.85rem; }
-        .type-total { font-weight: 700; font-size: 1.3rem; color: #2c7be5; }
+        .operateur-title {
+            font-weight: 700; font-size: 1.2rem; color: #1a56b0;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1rem; padding-bottom: 0.8rem; border-bottom: 2px solid #eef1f6;
+        }
+        .operateur-total { font-size: 1.3rem; font-weight: 700; color: #2c7be5; }
+
+        .type-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0.7rem 0; border-bottom: 1px solid #f1f3f7;
+        }
+        .type-row:last-child { border-bottom: none; }
+        .type-name { font-weight: 600; }
+        .type-count { color: #667085; font-size: 0.82rem; }
+        .type-amount { font-weight: 700; color: #344054; }
     </style>
 </head>
 <body>
@@ -36,7 +48,7 @@
 
     <div class="page-header mb-4">
         <h2 class="mb-1">Situation des gains</h2>
-        <div style="opacity:0.85;">Frais perçus sur les retraits et transferts</div>
+        <div style="opacity:0.85;">Frais perçus, par opérateur et par type d'opération</div>
     </div>
 
     <div class="filter-card shadow-sm">
@@ -55,23 +67,35 @@
         </form>
     </div>
 
-    <div class="total-card">
-        <div class="text-muted mb-1">Total des gains</div>
-        <div class="total-amount"><?= number_format($gainTotal, 0, ',', ' ') ?> Ar</div>
+    <div class="total-global">
+        <div class="text-muted mb-1">Total général tous opérateurs confondus</div>
+        <div class="amount"><?= number_format($gainGlobal, 0, ',', ' ') ?> Ar</div>
     </div>
 
-    <?php if (empty($gainsParType)): ?>
+    <?php if (empty($groupes)): ?>
         <p class="text-center text-muted">Aucune opération sur cette période.</p>
     <?php else: ?>
-        <?php foreach ($gainsParType as $ligne): ?>
-            <div class="type-card">
-                <div>
-                    <div class="type-name"><?= esc(ucfirst($ligne['type_operation'])) ?></div>
-                    <div class="type-count"><?= $ligne['nombre_operations'] ?> opération<?= $ligne['nombre_operations'] > 1 ? 's' : '' ?></div>
+
+        <?php foreach ($groupes as $nomOperateur => $data): ?>
+            <div class="operateur-block">
+                <div class="operateur-title">
+                    <span><?= esc($nomOperateur) ?></span>
+                    <span class="operateur-total"><?= number_format($data['total'], 0, ',', ' ') ?> Ar</span>
                 </div>
-                <div class="type-total"><?= number_format($ligne['total_frais'], 0, ',', ' ') ?> Ar</div>
+
+                <?php foreach ($data['types'] as $ligne): ?>
+                    <div class="type-row">
+                        <div>
+                            <div class="type-name"><?= esc(ucfirst($ligne['type_operation'])) ?></div>
+                            <div class="type-count"><?= $ligne['nombre_operations'] ?> opération<?= $ligne['nombre_operations'] > 1 ? 's' : '' ?></div>
+                        </div>
+                        <div class="type-amount"><?= number_format($ligne['total_frais'], 0, ',', ' ') ?> Ar</div>
+                    </div>
+                <?php endforeach; ?>
+
             </div>
         <?php endforeach; ?>
+
     <?php endif; ?>
 
 </div>

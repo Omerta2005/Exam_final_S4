@@ -14,15 +14,31 @@ class GainController extends BaseController
         $dateFin   = $this->request->getGet('date_fin');
 
         $model = new OperationModel();
+        $lignes = $model->getGainsParOperateurEtType($dateDebut, $dateFin);
 
-        $gainsParType = $model->getGainsParType($dateDebut, $dateFin);
-        $gainTotal    = $model->getGainTotal($dateDebut, $dateFin);
+        // Regroupement par opérateur, avec calcul du total par opérateur
+        $groupes = [];
+        foreach ($lignes as $ligne) {
+            $nomOp = $ligne['nom_operateur'];
+
+            if (! isset($groupes[$nomOp])) {
+                $groupes[$nomOp] = [
+                    'types' => [],
+                    'total' => 0,
+                ];
+            }
+
+            $groupes[$nomOp]['types'][] = $ligne;
+            $groupes[$nomOp]['total'] += $ligne['total_frais'];
+        }
+
+        $gainGlobal = array_sum(array_column($groupes, 'total'));
 
         return view('operateur/gains/index', [
-            'gainsParType' => $gainsParType,
-            'gainTotal'    => $gainTotal,
-            'dateDebut'    => $dateDebut,
-            'dateFin'      => $dateFin,
+            'groupes'    => $groupes,
+            'gainGlobal' => $gainGlobal,
+            'dateDebut'  => $dateDebut,
+            'dateFin'    => $dateFin,
         ]);
     }
 }

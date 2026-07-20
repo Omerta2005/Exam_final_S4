@@ -19,6 +19,42 @@ class OperationModel extends Model
         'id_statut',
     ];
 
+    public function getGainsParOperateurEtType(?string $dateDebut = null, ?string $dateFin = null)
+    {
+        $sql = "
+            SELECT
+                Operateur.id_operateur,
+                Operateur.nom AS nom_operateur,
+                TypeOperation.libelle AS type_operation,
+                SUM(Operation.frais_appliques) AS total_frais,
+                COUNT(Operation.id_operation) AS nombre_operations
+            FROM Operation
+            JOIN TypeOperation ON TypeOperation.id_type_operation = Operation.id_type_operation
+            JOIN statut_operation ON statut_operation.id_statut = Operation.id_statut
+            JOIN Compte ON Compte.id_compte = COALESCE(Operation.id_compte_source, Operation.id_compte_destination)
+            JOIN Client ON Client.id_client = Compte.id_client
+            JOIN Operateur ON Operateur.id_operateur = Client.id_operateur
+            WHERE statut_operation.libelle = 'reussie'
+            AND TypeOperation.libelle != 'depot'
+        ";
+
+        $params = [];
+
+        if ($dateDebut) {
+            $sql .= " AND Operation.date_operation >= ?";
+            $params[] = $dateDebut;
+        }
+        if ($dateFin) {
+            $sql .= " AND Operation.date_operation <= ?";
+            $params[] = $dateFin;
+        }
+
+        $sql .= " GROUP BY Operateur.id_operateur, TypeOperation.libelle
+                ORDER BY Operateur.nom, TypeOperation.libelle";
+
+        return $this->db->query($sql, $params)->getResultArray();
+    }
+
     public function getGainsParType(?string $dateDebut = null, ?string $dateFin = null)
     {
         $builder = $this->select('TypeOperation.libelle as type_operation,
