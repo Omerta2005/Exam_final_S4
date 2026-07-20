@@ -1,14 +1,12 @@
 # Répartition des tâches — Simulateur Opérateur Mobile Money
 
-**Projet binôme :** Miaro & Manda
-
 # V1
 
 ---
 
 ## Étape 0 — Miaro Manda
 
-- Architecture, git (Manda)
+- Architecture, git
 - Le modèle de données : `Client`, `Compte`, `Opération`, `TypeOpération`, `Barème`, `Préfixe`, ......
 - Base de donne
 - Les contrats d'interface entre les deux modules, notamment :
