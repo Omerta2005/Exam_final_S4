@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\OperateurModel;
+use App\Models\TypeOperationModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\BaremeFraisModel;
 
@@ -29,9 +31,9 @@ class BaremeFraisController extends BaseController
         $operateurModel = new OperateurModel();
         $typeModel = new TypeOperationModel();
 
-        return view('operateur/baremeFrais/form_multiple', [
+        return view('operateur/baremeFrais/formMultiple', [
             'operateurs' => $operateurModel->findAll(),
-            'typesOperation' => $typeModel->findAll(),
+            'typesOperation' => $typeModel->getTypesAvecFrais(),
         ]);
     }
 
@@ -95,5 +97,49 @@ class BaremeFraisController extends BaseController
         }
 
         return $erreurs;
+    }
+
+    public function form()
+    {
+        $id = $this->request->getGet('id');
+
+        $baremeModel = new BaremeFraisModel();
+        $operateurModel = new OperateurModel();
+        $typeModel = new TypeOperationModel();
+
+        $bareme = $id ? $baremeModel->find($id) : null;
+
+        return view('operateur/baremeFrais/form', [
+            'bareme'         => $bareme,
+            'operateurs'     => $operateurModel->findAll(),
+            'typesOperation' => $typeModel->getTypesAvecFrais(),
+        ]);
+    }
+
+    public function save()
+    {
+        $model = new BaremeFraisModel();
+
+        $id = $this->request->getPost('id_bareme');
+
+        $data = [
+            'id_operateur'      => $this->request->getPost('id_operateur'),
+            'id_type_operation' => $this->request->getPost('id_type_operation'),
+            'montant_min'       => $this->request->getPost('montant_min'),
+            'montant_max'       => $this->request->getPost('montant_max'),
+            'valeur_frais'      => $this->request->getPost('valeur_frais'),
+        ];
+
+        if ($id) {
+            $success = $model->update($id, $data);
+        } else {
+            $success = $model->insert($data);
+        }
+
+        if (! $success) {
+            return redirect()->back()->withInput()->with('errors', $model->errors());
+        }
+
+        return redirect()->to('/operateur/baremeFrais');
     }
 }

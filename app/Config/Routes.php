@@ -17,4 +17,8 @@ $routes->group('operateur/baremeFrais', function ($routes) {
     $routes->get('/', 'BaremeFraisController::index');
     $routes->get('formMultiple', 'BaremeFraisController::formMultiple');
     $routes->post('saveMultiple', 'BaremeFraisController::saveMultiple');
+    $routes->get('form', 'BaremeFraisController::form');
+    $routes->post('save', 'BaremeFraisController::save');
 });
+
+$routes->get('operateur/gains', 'GainController::index');

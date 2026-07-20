@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class BaremeFraisModel extends Model
 {
-    protected $table            = 'baremefrais';
+    protected $table            = 'BaremeFrais';
     protected $primaryKey       = 'id_bareme';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -31,6 +31,25 @@ class BaremeFraisModel extends Model
                     ->orderBy('TypeOperation.libelle')
                     ->orderBy('BaremeFrais.montant_min')
                     ->findAll();
+    }
+
+    /**
+     * Calcule le montant des frais applicables pour une opération donnée
+     *
+     * @param int   $idOperateur       ID de l'opérateur du client
+     * @param int   $idTypeOperation   ID du type d'opération (retrait, transfert...)
+     * @param float $montant           Montant de l'opération
+     * @return float                   Montant des frais (0 si aucune tranche ne correspond)
+     */
+    public function calculerFrais(int $idOperateur, int $idTypeOperation, float $montant): float
+    {
+        $tranche = $this->where('id_operateur', $idOperateur)
+                         ->where('id_type_operation', $idTypeOperation)
+                         ->where('montant_min <=', $montant)
+                         ->where('montant_max >=', $montant)
+                         ->first();
+
+        return $tranche ? (float) $tranche['valeur_frais'] : 0.0;
     }
 
     protected bool $allowEmptyInserts = false;
