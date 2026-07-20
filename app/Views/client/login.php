@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Connexion - Mobile Money</title>
+    <title>Connexion -Yas</title>
 
     <!-- Bootstrap local -->
     <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
@@ -45,7 +45,7 @@
 
 
                         <h3 class="mt-3 fw-bold">
-                            Mobile Money
+                           Yas
                         </h3>
 
 
@@ -138,7 +138,7 @@
 
             <p class="text-center text-muted mt-4">
 
-                © 2026 Mobile Money Simulator
+                © 2026Yas Simulator
 
             </p>
 

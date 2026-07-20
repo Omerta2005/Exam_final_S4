@@ -1,4 +1,4 @@
-# Répartition des tâches — Simulateur Opérateur Mobile Money
+# Répartition des tâches — Simulateur OpérateurYas
 
 # V1
 

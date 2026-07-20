@@ -278,7 +278,7 @@ class ClientController extends BaseController
         $destinataire = $clientModel->where('numero_telephone', $numero_destinataire)->first();
 
         if (!$destinataire) {
-            return redirect()->back()->with('error', 'Ce numero ne correspond a aucun client Mobile Money.');
+            return redirect()->back()->with('error', 'Ce numero ne correspond a aucun clientYas.');
         }
 
         $id_client = session()->get('id_client');
