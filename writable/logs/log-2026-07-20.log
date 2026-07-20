@@ -1331,768 +1331,340 @@ DEBUG - 2026-07-20 11:25:28 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 11:25:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 11:25:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 11:25:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2026-07-20 11:55:27 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php:111
+ERROR - 2026-07-20 11:40:52 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/omerta/Projet-SI/Exam_final_S4/system/Database/SQLite3/Connection.php:111
 Stack trace:
-#0 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
-#1 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
-#2 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
-#3 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
-#4 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
-#5 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
-#6 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
-#7 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Models/PrefixeModel.php(25): CodeIgniter\BaseModel->findAll()
-#8 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/PrefixeController.php(15): App\Models\PrefixeModel->getAllWithOperateur()
-#9 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\PrefixeController->index()
-#10 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-#11 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-#12 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
-#13 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-#14 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
-#15 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/rewrite.php(44): require_once('...')
-#16 {main}
-
-Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php:118
-Stack trace:
-#0 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
-#1 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
-#2 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
-#3 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
-#4 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
-#5 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/BaseModel.php(676): CodeIgniter\Model->doFindAll()
-#6 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Models/PrefixeModel.php(25): CodeIgniter\BaseModel->findAll()
-#7 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/PrefixeController.php(15): App\Models\PrefixeModel->getAllWithOperateur()
-#8 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\PrefixeController->index()
-#9 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-#10 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-#11 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
-#12 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-#13 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
-#14 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/rewrite.php(44): require_once('...')
-#15 {main}
-CRITICAL - 2026-07-20 11:55:27 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
-Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
-[Method: GET, Route: operateur/prefixe]
-in SYSTEMPATH/Database/BaseConnection.php on line 606.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
- 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
- 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 SYSTEMPATH/Model.php(253): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH/BaseModel.php(676): CodeIgniter\Model->doFindAll()
- 6 APPPATH/Models/PrefixeModel.php(25): CodeIgniter\BaseModel->findAll()
- 7 APPPATH/Controllers/PrefixeController.php(15): App\Models\PrefixeModel->getAllWithOperateur()
- 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\PrefixeController->index()
- 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-14 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 11:55:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2026-07-20 11:55:34 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php:111
-Stack trace:
-#0 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
-#1 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
-#2 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
-#3 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
-#4 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
-#5 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
-#6 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
-#7 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/ClientController.php(30): CodeIgniter\BaseModel->first()
-#8 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\ClientController->login()
-#9 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-#10 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-#11 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
-#12 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-#13 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
-#14 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/rewrite.php(44): require_once('...')
+#0 /home/omerta/Projet-SI/Exam_final_S4/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/omerta/Projet-SI/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/omerta/Projet-SI/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/omerta/Projet-SI/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/omerta/Projet-SI/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#5 /home/omerta/Projet-SI/Exam_final_S4/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#6 /home/omerta/Projet-SI/Exam_final_S4/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#7 /home/omerta/Projet-SI/Exam_final_S4/app/Controllers/PrefixeController.php(29): CodeIgniter\BaseModel->find()
+#8 /home/omerta/Projet-SI/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\PrefixeController->form()
+#9 /home/omerta/Projet-SI/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#10 /home/omerta/Projet-SI/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#11 /home/omerta/Projet-SI/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#12 /home/omerta/Projet-SI/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#13 /home/omerta/Projet-SI/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#14 /home/omerta/Projet-SI/Exam_final_S4/system/rewrite.php(44): require_once('...')
 #15 {main}
 
-Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php:118
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/omerta/Projet-SI/Exam_final_S4/system/Database/SQLite3/Connection.php:118
 Stack trace:
-#0 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
-#1 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
-#2 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
-#3 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
-#4 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
-#5 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
-#6 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/ClientController.php(30): CodeIgniter\BaseModel->first()
-#7 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\ClientController->login()
-#8 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-#9 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-#10 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
-#11 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-#12 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
-#13 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/rewrite.php(44): require_once('...')
+#0 /home/omerta/Projet-SI/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/omerta/Projet-SI/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/omerta/Projet-SI/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/omerta/Projet-SI/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
+#4 /home/omerta/Projet-SI/Exam_final_S4/system/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+#5 /home/omerta/Projet-SI/Exam_final_S4/system/BaseModel.php(615): CodeIgniter\Model->doFind()
+#6 /home/omerta/Projet-SI/Exam_final_S4/app/Controllers/PrefixeController.php(29): CodeIgniter\BaseModel->find()
+#7 /home/omerta/Projet-SI/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\PrefixeController->form()
+#8 /home/omerta/Projet-SI/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+#9 /home/omerta/Projet-SI/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+#10 /home/omerta/Projet-SI/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
+#11 /home/omerta/Projet-SI/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+#12 /home/omerta/Projet-SI/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
+#13 /home/omerta/Projet-SI/Exam_final_S4/system/rewrite.php(44): require_once('...')
 #14 {main}
-CRITICAL - 2026-07-20 11:55:34 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
+CRITICAL - 2026-07-20 11:40:52 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
 Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
-[Method: POST, Route: client/login]
+[Method: GET, Route: operateur/prefixe/form]
 in SYSTEMPATH/Database/BaseConnection.php on line 606.
  1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
  2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
  3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 6 APPPATH/Controllers/ClientController.php(30): CodeIgniter\BaseModel->first()
- 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientController->login()
+ 4 SYSTEMPATH/Model.php(192): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH/BaseModel.php(615): CodeIgniter\Model->doFind()
+ 6 APPPATH/Controllers/PrefixeController.php(29): CodeIgniter\BaseModel->find()
+ 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\PrefixeController->form()
  8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
  9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
 10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
 11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
 12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-13 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-ERROR - 2026-07-20 11:56:06 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php:111
-Stack trace:
-#0 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
-#1 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
-#2 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
-#3 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
-#4 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
-#5 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
-#6 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
-#7 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/ClientController.php(30): CodeIgniter\BaseModel->first()
-#8 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\ClientController->login()
-#9 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-#10 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-#11 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
-#12 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-#13 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
-#14 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/rewrite.php(44): require_once('...')
-#15 {main}
-
-Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php:118
-Stack trace:
-#0 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
-#1 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
-#2 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
-#3 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
-#4 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
-#5 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/BaseModel.php(714): CodeIgniter\Model->doFirst()
-#6 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/ClientController.php(30): CodeIgniter\BaseModel->first()
-#7 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(951): App\Controllers\ClientController->login()
-#8 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-#9 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-#10 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(417): CodeIgniter\CodeIgniter->run()
-#11 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-#12 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/public/index.php(59): CodeIgniter\Boot::bootWeb()
-#13 /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/system/rewrite.php(44): require_once('...')
-#14 {main}
-CRITICAL - 2026-07-20 11:56:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to connect to the database.
-Main connection [SQLite3]: SQLite3 error: Unable to open database: unable to open database file
-[Method: POST, Route: client/login]
-in SYSTEMPATH/Database/BaseConnection.php on line 606.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
- 2 SYSTEMPATH/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
- 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 6 APPPATH/Controllers/ClientController.php(30): CodeIgniter\BaseModel->first()
- 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientController->login()
- 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-13 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 11:59:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 11:59:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 11:59:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 11:59:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 11:59:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:00:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:00:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:01:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:02:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:02:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:02:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:02:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:02:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:04:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:04:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:04:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:04:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:04:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:05:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+13 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 11:48:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:48:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:52:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:52:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:52:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:52:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 11:53:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:02:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:02:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:02:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:02:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:03:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:03:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:03:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:03:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:08:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 12:08:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:08:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:08:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:09:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:09:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:09:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:10:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:10:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:10:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:10:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:10:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:11:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:12:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:12:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:12:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:12:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:12:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:12:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:13:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:13:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:13:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:13:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:13:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:14:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2026-07-20 12:22:23 --> Unable to prepare statement: no such table: CommissionInterOperateurModel
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 7 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 8 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
-10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-15 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:22:23 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: CommissionInterOperateurModel
-[Method: GET, Route: operateur/commissions]
-in SYSTEMPATH/Database/BaseConnection.php on line 865.
- 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 2 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 3 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 4 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+DEBUG - 2026-07-20 12:08:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:08:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:08:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:08:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:09:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:09:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:09:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:09:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:17:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:17:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:17:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:18:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:18:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:18:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:18:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:18:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:22:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:22:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:23:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:23:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:23:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 12:29:05 --> ParseError: syntax error, unexpected identifier "getCompteByIdClient", expecting variable
+[Method: GET, Route: client/operations]
+in APPPATH/Controllers/ClientController.php on line 386.
+ 1 SYSTEMPATH/Autoloader/Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile()
+ 2 SYSTEMPATH/Autoloader/Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace()
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass()
+ 4 SYSTEMPATH/Router/Router.php(792): class_exists()
+ 5 SYSTEMPATH/Router/Router.php(230): CodeIgniter\Router\Router->processRouteAttributes()
+ 6 SYSTEMPATH/CodeIgniter.php(829): CodeIgniter\Router\Router->handle()
+ 7 SYSTEMPATH/CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt()
  8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
  9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
 11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:22:23 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: CommissionInterOperateurModel
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
- 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 6 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 7 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-14 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:22:23 --> [Caused by] SQLite3Exception: Unable to prepare statement: no such table: CommissionInterOperateurModel
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 7 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 8 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
-10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-15 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-ERROR - 2026-07-20 12:22:26 --> Unable to prepare statement: no such table: CommissionInterOperateurModel
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 7 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 8 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
-10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-15 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:22:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: CommissionInterOperateurModel
-[Method: GET, Route: operateur/commissions]
-in SYSTEMPATH/Database/BaseConnection.php on line 865.
- 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 2 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 3 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 4 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:22:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: CommissionInterOperateurModel
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
- 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 5 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 6 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 7 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 8 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 9 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-10 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-11 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-12 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-13 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-14 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:22:26 --> [Caused by] SQLite3Exception: Unable to prepare statement: no such table: CommissionInterOperateurModel
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 SYSTEMPATH/Model.php(295): CodeIgniter\Database\BaseBuilder->get()
- 6 SYSTEMPATH/BaseModel.php(714): CodeIgniter\Model->doFirst()
- 7 APPPATH/Models/CommissionInterOperateurModel.php(22): CodeIgniter\BaseModel->first()
- 8 APPPATH/Controllers/CommissionInterOperateurController.php(19): App\Models\CommissionInterOperateurModel->getPourcentage()
- 9 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
-10 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
-11 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-12 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-13 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-14 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-15 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 12:23:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2026-07-20 12:35:40 --> Unable to prepare statement: no such table: vue_gains_operations
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 6 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-13 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:35:40 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: vue_gains_operations
-[Method: GET, Route: operateur/gains]
-in SYSTEMPATH/Database/BaseConnection.php on line 865.
- 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 2 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 3 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 4 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 5 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
- 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
- 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-10 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:35:40 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: vue_gains_operations
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
- 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 5 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:35:40 --> [Caused by] SQLite3Exception: Unable to prepare statement: no such table: vue_gains_operations
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 6 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-13 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 12:35:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:35:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:35:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-ERROR - 2026-07-20 12:35:45 --> Unable to prepare statement: no such table: vue_gains_operations
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 6 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-13 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:35:45 --> CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: vue_gains_operations
-[Method: GET, Route: operateur/gains]
-in SYSTEMPATH/Database/BaseConnection.php on line 865.
- 1 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 2 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 3 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 4 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 5 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 6 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 7 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
- 8 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
- 9 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-10 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:35:45 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unable to prepare statement: no such table: vue_gains_operations
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
- 1 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 2 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 3 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 4 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 5 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:35:45 --> [Caused by] SQLite3Exception: Unable to prepare statement: no such table: vue_gains_operations
-in SYSTEMPATH/Database/SQLite3/Connection.php on line 164.
- 1 SYSTEMPATH/Database/SQLite3/Connection.php(164): SQLite3->query()
- 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
- 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
- 4 SYSTEMPATH/Database/BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query()
- 5 APPPATH/Models/OperationModel.php(39): CodeIgniter\Database\BaseBuilder->get()
- 6 APPPATH/Controllers/GainController.php(17): App\Models\OperationModel->getGainsParOperateurEtType()
- 7 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 8 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 9 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
-10 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-11 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-12 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-13 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 12:36:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:37:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:38:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:39:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:39:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2026-07-20 12:44:03 --> ErrorException: Undefined array key "types"
-[Method: GET, Route: operateur/gains]
-in APPPATH/Views/operateur/gains/index.php on line 82.
- 1 APPPATH/Views/operateur/gains/index.php(82): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/gains/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/GainController.php(33): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 12:44:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 12:29:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:29:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:29:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:29:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:29:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:29:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:29:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:33:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:37:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:38:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:38:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:39:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:39:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:39:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:39:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:39:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:40:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:43:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:43:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:43:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 12:44:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2026-07-20 12:44:08 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 12:45:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:45:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-CRITICAL - 2026-07-20 12:45:09 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:45:11 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:45:17 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:45:18 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:45:18 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-CRITICAL - 2026-07-20 12:45:19 --> ErrorException: Undefined variable $dateDebut
-[Method: GET, Route: operateur/commissions]
-in APPPATH/Views/operateur/commissions/index.php on line 15.
- 1 APPPATH/Views/operateur/commissions/index.php(15): CodeIgniter\Debug\Exceptions->errorHandler()
- 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/index.php')
- 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
- 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
- 5 APPPATH/Controllers/CommissionInterOperateurController.php(22): view()
- 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->index()
- 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
- 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
- 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
-10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
-11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
-12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
-DEBUG - 2026-07-20 12:46:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:46:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:46:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:46:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:46:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:46:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:47:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 12:47:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:44:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:46:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:48:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:49:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:50:31 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:52:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:52:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:52:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:52:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:53:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:53:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:54:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:54:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:54:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:54:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:54:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:54:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 12:55:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:08:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:55:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 12:58:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:05:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:06:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:06:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:06:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:06:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 13:06:18 --> ErrorException: Undefined variable $baremeFraisModel
+[Method: POST, Route: client/transfert]
+in APPPATH/Controllers/ClientController.php on line 295.
+ 1 APPPATH/Controllers/ClientController.php(295): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientController->transfert()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 13:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:06:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:07:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:08:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:08:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:08:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:08:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:08:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:08:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:08:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:08:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:09:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:08:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:10:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:10:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:10:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:11:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:11:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:11:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:11:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:11:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:13:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:13:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:14:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:17:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:10:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:10:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:10:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:17:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:18:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:18:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:18:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:17:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:18:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:18:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:18:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:18:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:18:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:18:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:18:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:18:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:19:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:19:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:19:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:19:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:22:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:22:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:22:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:22:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:22:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:22:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:25:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:26:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:26:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:26:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:27:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:27:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:27:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:27:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:27:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:29:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:34:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:36:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:36:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:37:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:38:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:39:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:19:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:20:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:22:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:22:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:23:57 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:24:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:24:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:25:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:25:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:25:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:25:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:27:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:27:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:30:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:30:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:31:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:36:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:36:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:36:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:37:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:38:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:38:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:38:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:38:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:38:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:38:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:39:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:39:37 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:39:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:39:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:39:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:39:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:39:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:39:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:41:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 13:41:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:54 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:41:55 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:42:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:43:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:43:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:43:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:43:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
-DEBUG - 2026-07-20 13:43:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:41:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:42:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:42:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 13:42:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

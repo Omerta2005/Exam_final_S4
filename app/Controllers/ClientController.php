@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\ClientModel;
 use App\Models\OperationModel;
+use App\Models\BaremeFraisModel;
 
 class ClientController extends BaseController
 {
@@ -57,7 +58,6 @@ class ClientController extends BaseController
         $id_client = $clientModel->getInsertID();
         $newClient = $clientModel->find($id_client);
 
-        // On cree aussi le compte associe, sans quoi le client n'a nulle part ou stocker un solde
         \Config\Database::connect()->table('Compte')->insert([
             'id_client' => $id_client,
             'solde'     => 0,
@@ -66,6 +66,12 @@ class ClientController extends BaseController
         $this->creerSession($newClient);
 
         return redirect()->to(base_url('client/solde'));
+    }
+
+    public function logout()
+    {
+        session()->destroy();
+        return redirect()->to('/');
     }
 
     private function creerSession(array $client): void
@@ -117,9 +123,6 @@ class ClientController extends BaseController
         ]);
     }
 
-    /**
-     * Affiche la page operations (retrait / depot / transfert)
-     */
     public function operations()
     {
         if (!session()->get('isLoggedIn')) {
@@ -134,8 +137,8 @@ class ClientController extends BaseController
     }
 
     /**
-     * Traite un retrait d'argent. Les frais sont calcules via BaremeFrais
-     * et debites en plus du montant demande.
+     * Traite un retrait d'argent. L'operation est annulee si aucun bareme de frais
+     * n'est defini pour l'operateur du client, ou si le solde est insuffisant.
      */
     public function retrait()
     {
@@ -158,11 +161,42 @@ class ClientController extends BaseController
             return redirect()->back()->with('error', 'Compte introuvable.');
         }
 
-        $operationModel = new OperationModel();
-        $frais          = $operationModel->getFrais(OperationModel::TYPE_RETRAIT, $montant);
-        $totalDebit     = $montant + $frais;
+        $operationModel   = new OperationModel();
+        $baremeFraisModel = new BaremeFraisModel();
+
+        $bareme = $baremeFraisModel
+            ->where('id_operateur', session()->get('id_operateur'))
+            ->where('id_type_operation', OperationModel::TYPE_RETRAIT)
+            ->where('montant_min <=', $montant)
+            ->where('montant_max >=', $montant)
+            ->first();
+
+        if (!$bareme) {
+            $operationModel->insert([
+                'id_type_operation'      => OperationModel::TYPE_RETRAIT,
+                'id_compte_source'       => $compte['id_compte'],
+                'id_compte_destination'  => null,
+                'montant'                => $montant,
+                'frais_appliques'        => 0,
+                'id_statut'              => OperationModel::STATUT_ANNULEE,
+            ]);
+
+            return redirect()->back()->with('error', 'Aucun bareme de frais defini pour ce montant de retrait. Operation annulee.');
+        }
+
+        $frais      = (float) $bareme['valeur_frais'];
+        $totalDebit = $montant + $frais;
 
         if ($compte['solde'] < $totalDebit) {
+            $operationModel->insert([
+                'id_type_operation'      => OperationModel::TYPE_RETRAIT,
+                'id_compte_source'       => $compte['id_compte'],
+                'id_compte_destination'  => null,
+                'montant'                => $montant,
+                'frais_appliques'        => $frais,
+                'id_statut'              => OperationModel::STATUT_ANNULEE,
+            ]);
+
             return redirect()->back()->with(
                 'error',
                 'Solde insuffisant : ' . number_format($totalDebit, 0, ',', ' ') . ' Ar necessaires (dont ' . number_format($frais, 0, ',', ' ') . ' Ar de frais).'
@@ -195,7 +229,8 @@ class ClientController extends BaseController
     }
 
     /**
-     * Traite un depot d'argent (aucun frais applique, pas de bareme defini pour le depot).
+     * Traite un depot d'argent. Contrairement au retrait/transfert, l'absence de
+     * bareme n'annule pas l'operation : les frais sont simplement 0.
      */
     public function depot()
     {
@@ -218,8 +253,10 @@ class ClientController extends BaseController
             return redirect()->back()->with('error', 'Compte introuvable.');
         }
 
+        $baremeFraisModel = new BaremeFraisModel();
+        $frais = $baremeFraisModel->calculerFrais(session()->get('id_operateur'), OperationModel::TYPE_DEPOT, $montant);
+
         $operationModel = new OperationModel();
-        $frais          = $operationModel->getFrais(OperationModel::TYPE_DEPOT, $montant);
 
         $db->transStart();
 
@@ -247,8 +284,55 @@ class ClientController extends BaseController
     }
 
     /**
-     * Traite un transfert d'argent vers un autre client. Les frais (via BaremeFrais)
-     * sont a la charge de l'expediteur ; le destinataire recoit le montant plein.
+     * Calcule, pour un montant et une liste de numeros donnes, ce que chaque
+     * destinataire recevra reellement (avec ou sans les frais de retrait couverts).
+     * Utilise en AJAX par la vue operations.php pour afficher un resume avant envoi.
+     */
+    public function calculFrais()
+    {
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setStatusCode(401)->setJSON(['error' => 'Non connecte']);
+        }
+
+        $montantParPersonne = (float) $this->request->getVar('montant');
+        $inclureFrais       = (bool) $this->request->getVar('inclure_frais');
+        $numeros             = json_decode($this->request->getVar('numeros') ?? '[]', true) ?: [];
+
+        $baremeFraisModel = new BaremeFraisModel();
+        $details = [];
+
+        foreach ($numeros as $numero) {
+            $numero = preg_replace('/\D/', '', $numero);
+
+            $operateur = $this->getOperateurByNumero($numero);
+
+            $frais = 0.0;
+
+            if ($inclureFrais && $operateur) {
+                $frais = $baremeFraisModel->calculerFrais($operateur['id_operateur'], OperationModel::TYPE_RETRAIT, $montantParPersonne);
+            }
+
+            $details[] = [
+                'numero'         => $numero,
+                'montant_envoye' => $montantParPersonne + $frais,
+                'frais_retrait'  => $frais,
+            ];
+        }
+
+        return $this->response->setJSON([
+            'details' => $details,
+        ]);
+    }
+
+    /**
+     * Traite un transfert vers un ou plusieurs destinataires. Le montant total saisi
+     * est divise a parts egales entre chaque destinataire. Si la case "inclure les
+     * frais" est cochee, chaque destinataire recoit en plus ses propres frais de
+     * retrait projetes (selon SON operateur), pour que sa part nette reste intacte
+     * apres un futur retrait. Les frais de transfert (payes par l'expediteur) sont
+     * calcules separement, part par part, selon l'operateur de l'expediteur.
+     * L'operation est annulee (et loggee) si l'expediteur n'a pas de bareme de
+     * transfert, ou si son solde est insuffisant pour couvrir l'ensemble des parts.
      */
     public function transfert()
     {
@@ -256,49 +340,130 @@ class ClientController extends BaseController
             return redirect()->to(base_url('client'));
         }
 
-        $montant             = (float) $this->request->getVar('montant');
-        $numero_destinataire = trim($this->request->getVar('numero_destinataire'));
-        $numero_destinataire = preg_replace('/\D/', '', $numero_destinataire);
+        $montantTotal          = (float) $this->request->getVar('montant_transfert');
+        $inclureFrais          = (bool) $this->request->getVar('inclure_frais');
+        $numerosDestinataires  = $this->request->getVar('numero_destinataire') ?? [];
 
-        if ($montant <= 0) {
+        // Nettoyage + suppression des doublons/valeurs vides
+        $numerosDestinataires = array_values(array_unique(array_filter(array_map(
+            fn ($n) => preg_replace('/\D/', '', trim($n)),
+            $numerosDestinataires
+        ))));
+
+        if ($montantTotal <= 0) {
             return redirect()->back()->with('error', 'Montant invalide.');
         }
 
-        if (strlen($numero_destinataire) !== 10 || $numero_destinataire[0] !== '0') {
-            return redirect()->back()->with('error', 'Numero du destinataire invalide.');
+        if (empty($numerosDestinataires)) {
+            return redirect()->back()->with('error', 'Ajoutez au moins un destinataire.');
+        }
+
+        foreach ($numerosDestinataires as $numero) {
+            if (strlen($numero) !== 10 || $numero[0] !== '0') {
+                return redirect()->back()->with('error', 'Numero de destinataire invalide : ' . $numero);
+            }
         }
 
         $numero_expediteur = session()->get('numero_telephone');
 
-        if ($numero_destinataire === $numero_expediteur) {
+        if (in_array($numero_expediteur, $numerosDestinataires, true)) {
             return redirect()->back()->with('error', "Vous ne pouvez pas vous transferer de l'argent a vous-meme.");
-        }
-
-        $clientModel  = new ClientModel();
-        $destinataire = $clientModel->where('numero_telephone', $numero_destinataire)->first();
-
-        if (!$destinataire) {
-            return redirect()->back()->with('error', 'Ce numero ne correspond a aucun clientYas.');
         }
 
         $id_client = session()->get('id_client');
         $db        = \Config\Database::connect();
 
-        $compteExpediteur   = $db->table('Compte')->where('id_client', $id_client)->get()->getRowArray();
-        $compteDestinataire = $db->table('Compte')->where('id_client', $destinataire['id_client'])->get()->getRowArray();
+        $compteExpediteur = $db->table('Compte')->where('id_client', $id_client)->get()->getRowArray();
 
-        if (!$compteExpediteur || !$compteDestinataire) {
+        if (!$compteExpediteur) {
             return redirect()->back()->with('error', 'Compte introuvable.');
         }
 
-        $operationModel = new OperationModel();
-        $frais          = $operationModel->getFrais(OperationModel::TYPE_TRANSFERT, $montant);
-        $totalDebit     = $montant + $frais;
+        $clientModel      = new ClientModel();
+        $operationModel   = new OperationModel();
+        $baremeFraisModel = new BaremeFraisModel();
+
+        $nbDestinataires    = count($numerosDestinataires);
+        $montantParPersonne = $montantTotal / $nbDestinataires;
+
+        // On construit d'abord chaque "part" (destinataire, montant a envoyer, frais)
+        // avant de toucher a la base, pour pouvoir tout valider en un bloc.
+        $parts      = [];
+        $totalDebit = 0.0;
+
+        foreach ($numerosDestinataires as $numero) {
+
+            $destinataire = $clientModel->where('numero_telephone', $numero)->first();
+
+            if (!$destinataire) {
+                return redirect()->back()->with('error', 'Ce numero ne correspond a aucun client Mobile Money : ' . $numero);
+            }
+
+            $compteDestinataire = $db->table('Compte')->where('id_client', $destinataire['id_client'])->get()->getRowArray();
+
+            if (!$compteDestinataire) {
+                return redirect()->back()->with('error', 'Compte introuvable pour : ' . $numero);
+            }
+
+            // Frais de retrait futurs du destinataire, couverts si la case est cochee
+            $fraisRetraitCouvert = 0.0;
+            if ($inclureFrais) {
+                $fraisRetraitCouvert = $baremeFraisModel->calculerFrais(
+                    $destinataire['id_operateur'],
+                    OperationModel::TYPE_RETRAIT,
+                    $montantParPersonne
+                );
+            }
+
+            $montantEnvoye = $montantParPersonne + $fraisRetraitCouvert;
+
+            // Frais de transfert a la charge de l'expediteur pour cette part
+            $bareme = $baremeFraisModel
+                ->where('id_operateur', session()->get('id_operateur'))
+                ->where('id_type_operation', OperationModel::TYPE_TRANSFERT)
+                ->where('montant_min <=', $montantEnvoye)
+                ->where('montant_max >=', $montantEnvoye)
+                ->first();
+
+            if (!$bareme) {
+                $operationModel->insert([
+                    'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
+                    'id_compte_source'       => $compteExpediteur['id_compte'],
+                    'id_compte_destination'  => $compteDestinataire['id_compte'],
+                    'montant'                => $montantEnvoye,
+                    'frais_appliques'        => 0,
+                    'id_statut'              => OperationModel::STATUT_ANNULEE,
+                ]);
+
+                return redirect()->back()->with('error', 'Aucun bareme de frais de transfert defini pour ce montant. Operation annulee.');
+            }
+
+            $fraisTransfert = (float) $bareme['valeur_frais'];
+
+            $parts[] = [
+                'compte_destinataire' => $compteDestinataire,
+                'montant_envoye'      => $montantEnvoye,
+                'frais_transfert'     => $fraisTransfert,
+            ];
+
+            $totalDebit += $montantEnvoye + $fraisTransfert;
+        }
 
         if ($compteExpediteur['solde'] < $totalDebit) {
+            // On logue une seule ligne recapitulative de l'annulation (destination
+            // ambigue puisqu'il y a plusieurs destinataires, donc laissee a null).
+            $operationModel->insert([
+                'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
+                'id_compte_source'       => $compteExpediteur['id_compte'],
+                'id_compte_destination'  => null,
+                'montant'                => $montantTotal,
+                'frais_appliques'        => $totalDebit - $montantTotal,
+                'id_statut'              => OperationModel::STATUT_ANNULEE,
+            ]);
+
             return redirect()->back()->with(
                 'error',
-                'Solde insuffisant : ' . number_format($totalDebit, 0, ',', ' ') . ' Ar necessaires (dont ' . number_format($frais, 0, ',', ' ') . ' Ar de frais).'
+                'Solde insuffisant : ' . number_format($totalDebit, 0, ',', ' ') . ' Ar necessaires pour transferer a ' . $nbDestinataires . ' destinataire(s).'
             );
         }
 
@@ -308,18 +473,23 @@ class ClientController extends BaseController
             ->where('id_compte', $compteExpediteur['id_compte'])
             ->update(['solde' => $compteExpediteur['solde'] - $totalDebit]);
 
-        $db->table('Compte')
-            ->where('id_compte', $compteDestinataire['id_compte'])
-            ->update(['solde' => $compteDestinataire['solde'] + $montant]);
+        $soldeExpediteurCourant = $compteExpediteur['solde'] - $totalDebit;
 
-        $operationModel->insert([
-            'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
-            'id_compte_source'       => $compteExpediteur['id_compte'],
-            'id_compte_destination'  => $compteDestinataire['id_compte'],
-            'montant'                => $montant,
-            'frais_appliques'        => $frais,
-            'id_statut'              => OperationModel::STATUT_REUSSIE,
-        ]);
+        foreach ($parts as $part) {
+
+            $db->table('Compte')
+                ->where('id_compte', $part['compte_destinataire']['id_compte'])
+                ->update(['solde' => $part['compte_destinataire']['solde'] + $part['montant_envoye']]);
+
+            $operationModel->insert([
+                'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
+                'id_compte_source'       => $compteExpediteur['id_compte'],
+                'id_compte_destination'  => $part['compte_destinataire']['id_compte'],
+                'montant'                => $part['montant_envoye'],
+                'frais_appliques'        => $part['frais_transfert'],
+                'id_statut'              => OperationModel::STATUT_REUSSIE,
+            ]);
+        }
 
         $db->transComplete();
 
@@ -328,7 +498,7 @@ class ClientController extends BaseController
         }
 
         return redirect()->to(base_url('client/solde'))
-            ->with('success', 'Transfert de ' . number_format($montant, 0, ',', ' ') . ' Ar vers ' . $numero_destinataire . ' effectue (frais : ' . number_format($frais, 0, ',', ' ') . ' Ar).');
+            ->with('success', 'Transfert de ' . number_format($montantTotal, 0, ',', ' ') . ' Ar reparti entre ' . $nbDestinataires . ' destinataire(s) effectue.');
     }
 
     /**
@@ -349,9 +519,6 @@ class ClientController extends BaseController
         ]);
     }
 
-    /**
-     * Recupere le compte (avec nom + numero du client) a partir de l'id_client
-     */
     private function getCompteByIdClient(int $id_client)
     {
         $db = \Config\Database::connect();
