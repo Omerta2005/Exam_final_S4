@@ -107,3 +107,9 @@ INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_fra
 (3, 250001,    500000,   1500),
 (3, 500001,    1000000,  2500),
 (3, 1000001,   2000000,  3000);
+
+ALTER TABLE BaremeFrais 
+ADD COLUMN id_operateur INTEGER REFERENCES Operateur(id_operateur);
+
+UPDATE BaremeFrais
+SET id_operateur = 1;

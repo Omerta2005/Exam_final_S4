@@ -6,13 +6,19 @@ use CodeIgniter\Model;
 
 class TypeOperationModel extends Model
 {
-    protected $table            = 'typeoperations';
-    protected $primaryKey       = 'id';
+    protected $table            = 'TypeOperation';
+    protected $primaryKey       = 'id_type_operation';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = ['libelle'];
+
+    public function getTypesAvecFrais()
+    {
+        return $this->where('libelle !=', 'depot')->findAll();
+    }
+
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
