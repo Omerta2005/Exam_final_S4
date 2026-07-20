@@ -15,4 +15,6 @@ $routes->group('operateur/prefixe', function ($routes) {
 
 $routes->group('operateur/baremeFrais', function ($routes) {
     $routes->get('/', 'BaremeFraisController::index');
+    $routes->get('formMultiple', 'BaremeFraisController::formMultiple');
+    $routes->post('saveMultiple', 'BaremeFraisController::saveMultiple');
 });

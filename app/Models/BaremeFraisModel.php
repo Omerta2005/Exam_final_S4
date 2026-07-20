@@ -14,15 +14,22 @@ class BaremeFraisModel extends Model
     protected $protectFields    = true;
     protected $allowedFields = [
         'id_type_operation',
+        'id_operateur',
         'montant_min',
         'montant_max',
         'valeur_frais'
     ];
 
-    public function getAllWithTypeOperation()
+    public function getAllWithOperateurEtType()
     {
-        return $this->select('baremefrais.id_bareme, baremefrais.montant_min, baremefrais.montant_max, baremefrais.valeur_frais, typeoperation.nom as nom_type_operation')
-                    ->join('typeoperation', 'typeoperation.id_type_operation = baremefrais.id_type_operation')
+        return $this->select('BaremeFrais.id_bareme, BaremeFrais.montant_min, BaremeFrais.montant_max, BaremeFrais.valeur_frais,
+                            TypeOperation.libelle as libelle_type_operation,
+                            Operateur.id_operateur, Operateur.nom as nom_operateur')
+                    ->join('TypeOperation', 'TypeOperation.id_type_operation = BaremeFrais.id_type_operation')
+                    ->join('Operateur', 'Operateur.id_operateur = BaremeFrais.id_operateur')
+                    ->orderBy('Operateur.nom')
+                    ->orderBy('TypeOperation.libelle')
+                    ->orderBy('BaremeFrais.montant_min')
                     ->findAll();
     }
 

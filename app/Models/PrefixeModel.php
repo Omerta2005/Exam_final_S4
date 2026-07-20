@@ -38,26 +38,6 @@ class PrefixeModel extends Model
     protected $updatedField  = 'updated_at';
     protected $deletedField  = 'deleted_at';
 
-    // Validation
-    // protected $validationRules = [
-    //     'code' => [
-    //         'exact_length[3]',
-    //         'is_unique[prefixe.code]'
-    //     ],
-    //     'id_operateur' => [
-    //         'required'
-    //     ],
-    // ];
-
-    //  protected $validationMessages = [
-    //     'code' => [
-    //         'is_unique' => 'Ce code de préfixe existe déjà.',
-    //     ],
-    //     'id_operateur' => [
-    //         'required' => 'Vous devez sélectionner un opérateur.',
-    //     ],
-    // ];
-
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
 

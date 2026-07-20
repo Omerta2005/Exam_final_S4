@@ -52,9 +52,9 @@ class PrefixeController extends BaseController
             $succes = $model->insert($data);        // création
         }
 
-        if (! $succes) {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
-        }
+        // if (! $succes) {
+        //     return redirect()->back()->withInput()->with('errors', $model->errors());
+        // }
 
         return redirect()->to('/operateur/prefixe');
     }
