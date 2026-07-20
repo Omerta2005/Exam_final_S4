@@ -82,6 +82,10 @@
                        href="<?= base_url('operateur/comptes') ?>">Comptes</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link <?= str_starts_with($currentPath, 'operateur/commissions') ? 'active' : '' ?>"
+                       href="<?= base_url('operateur/commissions') ?>">Commissions</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link"
                        href="<?= base_url('/') ?>">Deconnexion</a>
                 </li>

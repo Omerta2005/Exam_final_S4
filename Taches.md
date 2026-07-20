@@ -36,6 +36,8 @@
 
 ---
 
+# V2
+
 ## Miaro — Côté Opérateur
 - Configuration des préfixes des autres opérateurs (031, 032, ...)
 - Configuration du pourcentage de commission pour les transferts inter-opérateurs

@@ -119,3 +119,40 @@ INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_fra
 (3, 250001,    500000,   1500, 1),
 (3, 500001,    1000000,  2500, 1),
 (3, 1000001,   2000000,  3000, 1);
+
+CREATE TABLE CommissionInterOperateur (
+    id_commission    INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_operateur     INTEGER NOT NULL,   -- l'opérateur qui applique cette commission
+    pourcentage      REAL NOT NULL,      -- ex: 0.02 pour 2%
+    FOREIGN KEY (id_operateur) REFERENCES Operateur(id_operateur)
+);
+
+INSERT INTO CommissionInterOperateur (id_operateur, pourcentage) VALUES
+(1, 0.02),  
+(2, 0.015),  
+(3, 0.01);
+
+CREATE VIEW vue_gains_operations AS
+SELECT
+    Operation.id_operation,
+    Operation.frais_appliques,
+    Operation.date_operation,
+    OperateurSource.id_operateur,
+    OperateurSource.nom AS nom_operateur,
+    TypeOperation.libelle AS type_operation,
+    CASE
+        WHEN OperateurDest.id_operateur IS NULL THEN 'na'
+        WHEN OperateurDest.id_operateur = OperateurSource.id_operateur THEN 'meme_operateur'
+        ELSE 'autre_operateur'
+    END AS portee
+FROM Operation
+JOIN TypeOperation ON TypeOperation.id_type_operation = Operation.id_type_operation
+JOIN statut_operation ON statut_operation.id_statut = Operation.id_statut
+JOIN Compte AS CompteSource ON CompteSource.id_compte = Operation.id_compte_source
+JOIN Client AS ClientSource ON ClientSource.id_client = CompteSource.id_client
+JOIN Operateur AS OperateurSource ON OperateurSource.id_operateur = ClientSource.id_operateur
+LEFT JOIN Compte AS CompteDest ON CompteDest.id_compte = Operation.id_compte_destination
+LEFT JOIN Client AS ClientDest ON ClientDest.id_client = CompteDest.id_client
+LEFT JOIN Operateur AS OperateurDest ON OperateurDest.id_operateur = ClientDest.id_operateur
+WHERE statut_operation.libelle = 'reussie'
+  AND TypeOperation.libelle != 'depot';

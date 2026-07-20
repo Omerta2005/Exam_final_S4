@@ -33,23 +33,26 @@ class BaremeFraisModel extends Model
                     ->findAll();
     }
 
-    /**
-     * Calcule le montant des frais applicables pour une opération donnée
-     *
-     * @param int   $idOperateur       ID de l'opérateur du client
-     * @param int   $idTypeOperation   ID du type d'opération (retrait, transfert...)
-     * @param float $montant           Montant de l'opération
-     * @return float                   Montant des frais (0 si aucune tranche ne correspond)
-     */
-    public function calculerFrais(int $idOperateur, int $idTypeOperation, float $montant): float
+    public function calculerFrais(int $idOperateurSource, int $idTypeOperation, float $montant, ?int $idOperateurDestination = null): float
     {
-        $tranche = $this->where('id_operateur', $idOperateur)
-                         ->where('id_type_operation', $idTypeOperation)
-                         ->where('montant_min <=', $montant)
-                         ->where('montant_max >=', $montant)
-                         ->first();
+        $tranche = $this->where('id_operateur', $idOperateurSource)
+                        ->where('id_type_operation', $idTypeOperation)
+                        ->where('montant_min <=', $montant)
+                        ->where('montant_max >=', $montant)
+                        ->first();
 
-        return $tranche ? (float) $tranche['valeur_frais'] : 0.0;
+        $fraisBase = $tranche ? (float) $tranche['valeur_frais'] : 0.0;
+
+        $estTransfertInterOperateur = $idOperateurDestination !== null
+                                    && $idOperateurDestination !== $idOperateurSource;
+
+        if ($estTransfertInterOperateur) {
+            $commissionModel = new \App\Models\CommissionInterOperateurModel();
+            $pourcentage = $commissionModel->getPourcentage($idOperateurSource);
+            $fraisBase += $montant * $pourcentage;
+        }
+
+        return $fraisBase;
     }
 
     protected bool $allowEmptyInserts = false;

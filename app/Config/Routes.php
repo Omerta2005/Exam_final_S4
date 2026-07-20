@@ -36,3 +36,6 @@ $routes->group('operateur/baremeFrais', function ($routes) {
 
 $routes->get('operateur/comptes', 'CompteController::index');
 $routes->get('operateur/gains', 'GainController::index');
+
+$routes->get('operateur/commissions', 'CommissionInterOperateurController::index');
+$routes->post('operateur/commissions/save', 'CommissionInterOperateurController::save');
