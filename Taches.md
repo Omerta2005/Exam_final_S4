@@ -48,6 +48,6 @@
 
 ## Manda — Côté Client
 - Option « Inclure les frais de retrait dans le montant envoyé »
-- Transfert vers un autre opérateur
-- Envoi multiple vers plusieurs numéros avec répartition automatique du montant
+- Transfert vers un autre opérateur(il n’y a pas de frais de retrait pour les autres opérateurs)
+- Envoi multiple vers plusieurs numéros avec répartition automatique du montant(même opérateur uniquement)
 - Consultation du détail des frais avant validation d'un transfert

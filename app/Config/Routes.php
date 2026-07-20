@@ -15,6 +15,7 @@ $routes->group('client', function($routes) {
     $routes->post('depot', 'ClientController::depot');
     $routes->post('transfert', 'ClientController::transfert');
     $routes->get('historique', 'ClientController::historique');
+    $routes->post('calcul-frais', 'ClientController::calculFrais');
 });
 $routes->get('/bareme-frais', 'BaremeFraisController::index');
 $routes->get('operateur/login', 'OperateurAuthController::index');

@@ -161,36 +161,62 @@ data-bs-target="#transfert" type="button" role="tab">
 
 <form action="<?= base_url('client/transfert') ?>" method="post">
 
-<?= csrf_field() ?>
+    <?= csrf_field() ?>
 
-<div class="mb-3">
-<label class="form-label fw-semibold">Numero du destinataire</label>
-<input
-    type="tel"
-    name="numero_destinataire"
-    class="form-control form-control-lg"
-    placeholder="0331234567"
-    pattern="0[0-9]{9}"
-    required
->
-</div>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Numero du destinataire</label>
+        <input
+            type="tel"
+            name="numero_destinataire"
+            class="form-control form-control-lg"
+            placeholder="0331234567"
+            pattern="0[0-9]{9}"
+            required
+        >
+    </div>
 
-<div class="mb-3">
-<label class="form-label fw-semibold">Montant a transferer (Ar)</label>
-<input
-    type="number"
-    name="montant"
-    class="form-control form-control-lg"
-    placeholder="10000"
-    min="1"
-    step="1"
-    required
->
-</div>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Montant a transferer (Ar)</label>
+        <input
+            type="number"
+            name="montant_transfert"
+            class="form-control form-control-lg"
+            placeholder="10000"
+            min="1"
+            step="1"
+            required
+        >
+    </div>
 
-<button type="submit" class="btn btn-primary btn-lg w-100 rounded-3">
+    <div class="form-check mb-3">
+        <input
+            class="form-check-input"
+            type="checkbox"
+            id="inclure_frais"
+            name="inclure_frais"
+            value="1"
+        >
+
+        <label class="form-check-label" for="inclure_frais">
+            Inclure les frais de retrait dans le montant envoyé
+        </label>
+
+        <div class="form-text">
+            Le montant reçu sera calculé après application des frais de retrait.
+        </div>
+        <div id="resume-transfert" class="mt-3">
+            <p class="mb-1"><strong>Résumé</strong></p>
+
+            <div>Montant saisi : <span id="montant-saisi">0</span> Ar</div>
+            <div>Frais de retrait : <span id="frais-retrait">0</span> Ar</div>
+            <div>Le destinataire recevra : <span id="montant-recu">0</span> Ar</div>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg w-100 rounded-3">
         Confirmer le transfert
-</button>
+    </button>
+
 
 </form>
 
@@ -221,4 +247,59 @@ data-bs-target="#transfert" type="button" role="tab">
 </div>
 
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const montantInput = document.querySelector('input[name="montant_transfert"]');
+    const checkbox = document.getElementById('inclure_frais');
+
+    const resume = document.getElementById('resume-transfert');
+    const montantSaisi = document.getElementById('montant-saisi');
+    const fraisRetrait = document.getElementById('frais-retrait');
+    const montantRecu = document.getElementById('montant-recu');
+
+    let timer = null;
+
+    async function calculer() {
+
+        let montant = parseFloat(montantInput.value);
+
+        if (isNaN(montant) || montant <= 0) {
+            resume.classList.add('d-none');
+            return;
+        }
+
+        const response = await fetch("<?= base_url('client/calcul-frais') ?>", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                montant: montant
+            })
+        });
+
+        const data = await response.json();
+
+        let recu = checkbox.checked
+            ? montant + data.frais
+            : montant;
+
+        montantSaisi.textContent = montant.toLocaleString();
+        fraisRetrait.textContent = data.frais.toLocaleString();
+        montantRecu.textContent = recu.toLocaleString();
+
+        resume.classList.remove('d-none');
+    }
+
+    montantInput.addEventListener('input', () => {
+        clearTimeout(timer);
+
+        timer = setTimeout(calculer, 500);
+    });
+
+    checkbox.addEventListener('change', calculer);
+
+});
+</script>
 <?= $this->endSection() ?>

@@ -6,6 +6,8 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\ClientModel;
 use App\Models\OperationModel;
+use App\Models\BaremeFraisModel;
+use App\Controllers\CompteController;
 
 class ClientController extends BaseController
 {
@@ -103,8 +105,9 @@ class ClientController extends BaseController
         if (!session()->get('isLoggedIn')) {
             return redirect()->to(base_url('client'));
         }
+        $compteController = new CompteController();
 
-        $compte = $this->getCompteByIdClient(session()->get('id_client'));
+        $compte = $compteController->getCompteByIdClient(session()->get('id_client'));
 
         if (!$compte) {
             return view('client/solde', [
@@ -126,7 +129,8 @@ class ClientController extends BaseController
             return redirect()->to(base_url('client'));
         }
 
-        $compte = $this->getCompteByIdClient(session()->get('id_client'));
+        $compteController = new CompteController();
+        $compte = $compteController->getCompteByIdClient(session()->get('id_client'));
 
         return view('client/operations', [
             'solde' => $compte['solde'] ?? 0,
@@ -157,12 +161,36 @@ class ClientController extends BaseController
         if (!$compte) {
             return redirect()->back()->with('error', 'Compte introuvable.');
         }
-
+        $baremeFraisModel = new BaremeFraisModel();
         $operationModel = new OperationModel();
-        $frais          = $operationModel->getFrais(OperationModel::TYPE_RETRAIT, $montant);
+        $frais          = $baremeFraisModel->calculerFrais(session()->get('id_operateur'), OperationModel::TYPE_RETRAIT, $montant);
         $totalDebit     = $montant + $frais;
 
+        if($frais == 0){
+        $operationModel->insert([
+            'id_type_operation'      => OperationModel::TYPE_RETRAIT,
+            'id_compte_source'       => $compte['id_compte'],
+            'id_compte_destination'  => null,
+            'montant'                => $montant,
+            'frais_appliques'        => $frais,
+            'id_statut'              => OperationModel::STATUT_ANNULEE,
+        ]);
+            return redirect()->back()->with(
+                'error',
+                'l` operateur n`a pas defini de bareme pour le retrait, impossible de calculer les frais.'
+            );
+        }
+
+
         if ($compte['solde'] < $totalDebit) {
+        $operationModel->insert([
+            'id_type_operation'      => OperationModel::TYPE_RETRAIT,
+            'id_compte_source'       => $compte['id_compte'],
+            'id_compte_destination'  => null,
+            'montant'                => $montant,
+            'frais_appliques'        => $frais,
+            'id_statut'              => OperationModel::STATUT_ANNULEE,
+        ]);
             return redirect()->back()->with(
                 'error',
                 'Solde insuffisant : ' . number_format($totalDebit, 0, ',', ' ') . ' Ar necessaires (dont ' . number_format($frais, 0, ',', ' ') . ' Ar de frais).'
@@ -218,8 +246,10 @@ class ClientController extends BaseController
             return redirect()->back()->with('error', 'Compte introuvable.');
         }
 
+        $baremeFraisModel = new BaremeFraisModel();
+        $frais = $baremeFraisModel->calculerFrais(session()->get('id_operateur'), OperationModel::TYPE_DEPOT, $montant);
+
         $operationModel = new OperationModel();
-        $frais          = $operationModel->getFrais(OperationModel::TYPE_DEPOT, $montant);
 
         $db->transStart();
 
@@ -252,13 +282,34 @@ class ClientController extends BaseController
      */
     public function transfert()
     {
+        $inclureFrais = $this->request->getPost('inclure_frais') == '1';
         if (!session()->get('isLoggedIn')) {
             return redirect()->to(base_url('client'));
         }
 
-        $montant             = (float) $this->request->getVar('montant');
+        $montant = (float) $this->request->getVar('montant_transfert');
         $numero_destinataire = trim($this->request->getVar('numero_destinataire'));
         $numero_destinataire = preg_replace('/\D/', '', $numero_destinataire);
+        $baremeFraisModel = new BaremeFraisModel();
+
+
+        $fraisTransfert = $baremeFraisModel->calculerFrais(
+            session()->get('id_operateur'),
+            OperationModel::TYPE_TRANSFERT,
+            $montant
+        );
+
+        $fraisRetrait = 0;
+
+        if ($inclureFrais) {
+            $fraisRetrait = $baremeFraisModel->calculerFrais(
+                session()->get('id_operateur'),
+                OperationModel::TYPE_RETRAIT,
+                $montant
+            );
+        }
+
+
 
         if ($montant <= 0) {
             return redirect()->back()->with('error', 'Montant invalide.');
@@ -292,8 +343,10 @@ class ClientController extends BaseController
         }
 
         $operationModel = new OperationModel();
-        $frais          = $operationModel->getFrais(OperationModel::TYPE_TRANSFERT, $montant);
-        $totalDebit     = $montant + $frais;
+        $frais          =  $baremeFraisModel->calculerFrais(session()->get('id_operateur'), OperationModel::TYPE_TRANSFERT, $montant);
+        $totalDebit = $montant + $fraisTransfert + $fraisRetrait;
+
+        $montantCredite = $montant + $fraisRetrait;
 
         if ($compteExpediteur['solde'] < $totalDebit) {
             return redirect()->back()->with(
@@ -348,19 +401,20 @@ class ClientController extends BaseController
             'operations' => $operations,
         ]);
     }
-
-    /**
-     * Recupere le compte (avec nom + numero du client) a partir de l'id_client
-     */
-    private function getCompteByIdClient(int $id_client)
+    public function calculFrais()
     {
-        $db = \Config\Database::connect();
+        $montant = (float)$this->request->getPost('montant');
 
-        return $db->table('Compte')
-            ->select('Client.numero_telephone, Client.nom, Compte.id_compte, Compte.solde')
-            ->join('Client', 'Client.id_client = Compte.id_client')
-            ->where('Compte.id_client', $id_client)
-            ->get()
-            ->getRowArray();
+        $bareme = new BaremeFraisModel();
+
+        $frais = $bareme->calculerFrais(
+            session()->get('id_operateur'),
+            OperationModel::TYPE_RETRAIT,
+            $montant
+        );
+
+        return $this->response->setJSON([
+            'frais' => $frais
+        ]);
     }
 }
