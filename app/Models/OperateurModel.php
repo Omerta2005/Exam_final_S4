@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class OperateurModel extends Model
 {
-    protected $table            = 'operateurs';
+    protected $table            = 'Operateur';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';

@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class TypeOperationModel extends Model
 {
     protected $table            = 'typeoperations';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_type_operation';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;

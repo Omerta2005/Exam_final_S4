@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class BaremeFraisModel extends Model
 {
     protected $table            = 'baremefrais';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_bareme';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
@@ -18,6 +18,13 @@ class BaremeFraisModel extends Model
         'montant_max',
         'valeur_frais'
     ];
+
+    public function getAllWithTypeOperation()
+    {
+        return $this->select('baremefrais.id_bareme, baremefrais.montant_min, baremefrais.montant_max, baremefrais.valeur_frais, typeoperation.nom as nom_type_operation')
+                    ->join('typeoperation', 'typeoperation.id_type_operation = baremefrais.id_type_operation')
+                    ->findAll();
+    }
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

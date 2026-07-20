@@ -12,6 +12,9 @@ class BaremeFraisController extends BaseController
     {
         $BaremeFrais = new BaremeFraisModel();
         $baremeFrais = $BaremeFrais->findAll();
-        return $this->response->setJSON($baremeFrais);
+        
+        return view('/operateur/baremeFrais/index', [
+            'baremeFrais' => $baremeFrais
+        ]);
     }
 }
