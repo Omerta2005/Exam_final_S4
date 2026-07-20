@@ -35,3 +35,19 @@
 - Historique des opérations
 
 ---
+
+## Miaro — Côté Opérateur
+- Configuration des préfixes des autres opérateurs (031, 032, ...)
+- Configuration du pourcentage de commission pour les transferts inter-opérateurs
+- Situation des gains séparée :
+  - gains opérateur interne
+  - gains provenant des autres opérateurs
+- Situation des montants à reverser à chaque opérateur partenaire
+
+---
+
+## Manda — Côté Client
+- Option « Inclure les frais de retrait dans le montant envoyé »
+- Transfert vers un autre opérateur
+- Envoi multiple vers plusieurs numéros avec répartition automatique du montant
+- Consultation du détail des frais avant validation d'un transfert
