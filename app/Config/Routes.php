@@ -38,4 +38,6 @@ $routes->get('operateur/comptes', 'CompteController::index');
 $routes->get('operateur/gains', 'GainController::index');
 
 $routes->get('operateur/commissions', 'CommissionInterOperateurController::index');
+$routes->get('operateur/commissions/montants', 'CommissionInterOperateurController::montants');
+$routes->get('operateur/commissions/config', 'CommissionInterOperateurController::config');
 $routes->post('operateur/commissions/save', 'CommissionInterOperateurController::save');

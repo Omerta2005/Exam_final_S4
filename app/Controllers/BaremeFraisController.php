@@ -3,43 +3,44 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\OperateurModel;
 use App\Models\TypeOperationModel;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\BaremeFraisModel;
 
 class BaremeFraisController extends BaseController
 {
+    private const OPERATEUR_YAS_ID = 2;
+
     public function index()
     {
         $baremeFraisModel = new BaremeFraisModel();
-        $baremeFrais = $baremeFraisModel->getAllWithOperateurEtType();
+        $baremeFrais = $baremeFraisModel->getAllWithOperateurEtType(self::OPERATEUR_YAS_ID);
 
-        // Regrouper par opérateur puis par type d'opération pour l'affichage
         $groupes = [];
         foreach ($baremeFrais as $ligne) {
-            $groupes[$ligne['nom_operateur']][$ligne['libelle_type_operation']][] = $ligne;
+            $groupes[$ligne['libelle_type_operation']][] = $ligne;
         }
 
         return view('operateur/baremeFrais/index', [
-            'groupes' => $groupes
+            'groupes' => $groupes,
+            'nomOperateur' => 'Yas',
         ]);
     }
 
     public function formMultiple()
     {
-        $operateurModel = new OperateurModel();
         $typeModel = new TypeOperationModel();
 
         return view('operateur/baremeFrais/formMultiple', [
-            'operateurs' => $operateurModel->findAll(),
             'typesOperation' => $typeModel->getTypesAvecFrais(),
+            'operateurYasId' => self::OPERATEUR_YAS_ID,
+            'nomOperateur' => 'Yas',
         ]);
     }
 
     public function saveMultiple()
     {
-        $idOperateur = $this->request->getPost('id_operateur');
+        $idOperateur = self::OPERATEUR_YAS_ID;
         $idTypeOperation = $this->request->getPost('id_type_operation');
 
         $mins   = $this->request->getPost('montant_min');
@@ -104,15 +105,15 @@ class BaremeFraisController extends BaseController
         $id = $this->request->getGet('id');
 
         $baremeModel = new BaremeFraisModel();
-        $operateurModel = new OperateurModel();
         $typeModel = new TypeOperationModel();
 
         $bareme = $id ? $baremeModel->find($id) : null;
 
         return view('operateur/baremeFrais/form', [
             'bareme'         => $bareme,
-            'operateurs'     => $operateurModel->findAll(),
             'typesOperation' => $typeModel->getTypesAvecFrais(),
+            'operateurYasId' => self::OPERATEUR_YAS_ID,
+            'nomOperateur' => 'Yas',
         ]);
     }
 
@@ -123,7 +124,7 @@ class BaremeFraisController extends BaseController
         $id = $this->request->getPost('id_bareme');
 
         $data = [
-            'id_operateur'      => $this->request->getPost('id_operateur'),
+            'id_operateur'      => self::OPERATEUR_YAS_ID,
             'id_type_operation' => $this->request->getPost('id_type_operation'),
             'montant_min'       => $this->request->getPost('montant_min'),
             'montant_max'       => $this->request->getPost('montant_max'),

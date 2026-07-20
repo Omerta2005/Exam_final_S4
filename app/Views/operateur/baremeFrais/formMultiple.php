@@ -124,15 +124,12 @@
                 <?php endif; ?>
 
                 <form action="/operateur/baremeFrais/saveMultiple" method="post">
+                    <input type="hidden" name="id_operateur" value="<?= $operateurYasId ?>">
 
                     <div class="row g-3 mb-4">
                         <div class="col-md-6">
                             <label class="form-label">Opérateur</label>
-                            <select class="form-select" name="id_operateur" required>
-                                <?php foreach ($operateurs as $op): ?>
-                                    <option value="<?= $op['id_operateur'] ?>"><?= esc($op['nom']) ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <input type="text" class="form-control" value="<?= esc($nomOperateur) ?>" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Type d'opération</label>

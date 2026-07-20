@@ -6,6 +6,8 @@ use CodeIgniter\Model;
 
 class BaremeFraisModel extends Model
 {
+    public const OPERATEUR_YAS_ID = 2;
+
     protected $table            = 'BaremeFrais';
     protected $primaryKey       = 'id_bareme';
     protected $useAutoIncrement = true;
@@ -20,17 +22,22 @@ class BaremeFraisModel extends Model
         'valeur_frais'
     ];
 
-    public function getAllWithOperateurEtType()
+    public function getAllWithOperateurEtType(?int $idOperateur = null)
     {
-        return $this->select('BaremeFrais.id_bareme, BaremeFrais.montant_min, BaremeFrais.montant_max, BaremeFrais.valeur_frais,
+        $builder = $this->select('BaremeFrais.id_bareme, BaremeFrais.montant_min, BaremeFrais.montant_max, BaremeFrais.valeur_frais,
                             TypeOperation.libelle as libelle_type_operation,
                             Operateur.id_operateur, Operateur.nom as nom_operateur')
                     ->join('TypeOperation', 'TypeOperation.id_type_operation = BaremeFrais.id_type_operation')
                     ->join('Operateur', 'Operateur.id_operateur = BaremeFrais.id_operateur')
                     ->orderBy('Operateur.nom')
                     ->orderBy('TypeOperation.libelle')
-                    ->orderBy('BaremeFrais.montant_min')
-                    ->findAll();
+                    ->orderBy('BaremeFrais.montant_min');
+
+        if ($idOperateur !== null) {
+            $builder->where('BaremeFrais.id_operateur', $idOperateur);
+        }
+
+        return $builder->findAll();
     }
 
     public function calculerFrais(int $idOperateurSource, int $idTypeOperation, float $montant, ?int $idOperateurDestination = null): float

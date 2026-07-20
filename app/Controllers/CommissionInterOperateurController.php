@@ -4,28 +4,37 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\OperationModel;
 use App\Models\CommissionInterOperateurModel;
-use App\Models\OperateurModel;
 
 class CommissionInterOperateurController extends BaseController
 {
+    private const OPERATEUR_YAS_ID = 2;
+
     public function index()
     {
-        $operateurModel = new OperateurModel();
+        return $this->montants();
+    }
+
+    public function config()
+    {
         $commissionModel = new CommissionInterOperateurModel();
 
-        $operateurs = $operateurModel->findAll();
-        foreach ($operateurs as &$op) {
-            $op['pourcentage'] = $commissionModel->getPourcentage($op['id_operateur']);
-        }
+        $operateur = [
+            'id_operateur' => self::OPERATEUR_YAS_ID,
+            'nom' => 'Yas',
+            'pourcentage' => $commissionModel->getPourcentage(self::OPERATEUR_YAS_ID),
+        ];
 
-        return view('operateur/commissions/index', ['operateurs' => $operateurs]);
+        return view('operateur/commissions/config', [
+            'operateur' => $operateur,
+        ]);
     }
 
     public function save()
     {
         $model = new CommissionInterOperateurModel();
-        $idOperateur = $this->request->getPost('id_operateur');
+        $idOperateur = self::OPERATEUR_YAS_ID;
         $pourcentageAffiche = $this->request->getPost('pourcentage'); // ex: 2 (pour 2%)
         $pourcentageStocke = $pourcentageAffiche / 100; // ex: 0.02
 
@@ -38,5 +47,34 @@ class CommissionInterOperateurController extends BaseController
         }
 
         return redirect()->to('/operateur/commissions')->with('success', 'Commission mise à jour.');
+    }
+
+    public function montants()
+    {
+        $dateDebut = $this->request->getGet('date_debut');
+        $dateFin   = $this->request->getGet('date_fin');
+
+        $model = new OperationModel();
+        $lignes = array_values(array_filter(
+            $model->getMontantsAEnvoyer($dateDebut, $dateFin),
+            static fn (array $ligne): bool => ($ligne['nom_operateur_source'] ?? null) === 'Yas'
+        ));
+
+        $totalGeneral = array_sum(array_map(static fn (array $ligne): float => (float) $ligne['montant_total'], $lignes));
+        $commissionModel = new CommissionInterOperateurModel();
+        $operateur = [
+            'id_operateur' => self::OPERATEUR_YAS_ID,
+            'nom' => 'Yas',
+            'pourcentage' => $commissionModel->getPourcentage(self::OPERATEUR_YAS_ID),
+        ];
+
+        return view('operateur/commissions/montants', [
+            'lignes' => $lignes,
+            'totalGeneral' => $totalGeneral,
+            'dateDebut' => $dateDebut,
+            'dateFin' => $dateFin,
+            'nomOperateur' => 'Yas',
+            'operateur' => $operateur,
+        ]);
     }
 }
