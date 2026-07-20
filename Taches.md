@@ -26,7 +26,7 @@
 ---
 
 ## Manda — Côté Client
-
+- Recherche template
 - Login automatique par numéro de téléphone (vérification du préfixe, pas d'inscription préalable)
 - Consultation du solde
 - Dépôt (automatique)
