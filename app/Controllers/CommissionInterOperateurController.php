@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\OperateurModel;
 use App\Models\OperationModel;
 use App\Models\CommissionInterOperateurModel;
 
@@ -18,23 +19,27 @@ class CommissionInterOperateurController extends BaseController
 
     public function config()
     {
+        $operateurModel = new OperateurModel();
         $commissionModel = new CommissionInterOperateurModel();
 
-        $operateur = [
-            'id_operateur' => self::OPERATEUR_YAS_ID,
-            'nom' => 'Yas',
-            'pourcentage' => $commissionModel->getPourcentage(self::OPERATEUR_YAS_ID),
-        ];
+        $operateurs = [];
+        foreach ($operateurModel->findAll() as $operateur) {
+            $operateurs[] = [
+                'id_operateur' => (int) $operateur['id_operateur'],
+                'nom' => $operateur['nom'],
+                'pourcentage' => $commissionModel->getPourcentage((int) $operateur['id_operateur']),
+            ];
+        }
 
         return view('operateur/commissions/config', [
-            'operateur' => $operateur,
+            'operateurs' => $operateurs,
         ]);
     }
 
     public function save()
     {
         $model = new CommissionInterOperateurModel();
-        $idOperateur = self::OPERATEUR_YAS_ID;
+        $idOperateur = (int) $this->request->getPost('id_operateur');
         $pourcentageAffiche = $this->request->getPost('pourcentage'); // ex: 2 (pour 2%)
         $pourcentageStocke = $pourcentageAffiche / 100; // ex: 0.02
 

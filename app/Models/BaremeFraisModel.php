@@ -42,24 +42,29 @@ class BaremeFraisModel extends Model
 
     public function calculerFrais(int $idOperateurSource, int $idTypeOperation, float $montant, ?int $idOperateurDestination = null): float
     {
-        $tranche = $this->where('id_operateur', $idOperateurSource)
-                        ->where('id_type_operation', $idTypeOperation)
-                        ->where('montant_min <=', $montant)
-                        ->where('montant_max >=', $montant)
-                        ->first();
-
-        $fraisBase = $tranche ? (float) $tranche['valeur_frais'] : 0.0;
+        $fraisBase = $this->calculerFraisBase($idOperateurSource, $idTypeOperation, $montant);
 
         $estTransfertInterOperateur = $idOperateurDestination !== null
                                     && $idOperateurDestination !== $idOperateurSource;
 
         if ($estTransfertInterOperateur) {
             $commissionModel = new \App\Models\CommissionInterOperateurModel();
-            $pourcentage = $commissionModel->getPourcentage($idOperateurSource);
+            $pourcentage = $commissionModel->getPourcentage($idOperateurDestination);
             $fraisBase += $montant * $pourcentage;
         }
 
         return $fraisBase;
+    }
+
+    public function calculerFraisBase(int $idOperateur, int $idTypeOperation, float $montant): float
+    {
+        $tranche = $this->where('id_operateur', $idOperateur)
+                        ->where('id_type_operation', $idTypeOperation)
+                        ->where('montant_min <=', $montant)
+                        ->where('montant_max >=', $montant)
+                        ->first();
+
+        return $tranche ? (float) $tranche['valeur_frais'] : 0.0;
     }
 
     protected bool $allowEmptyInserts = false;

@@ -14,6 +14,7 @@ class OperationModel extends Model
         'id_type_operation',
         'id_compte_source',
         'id_compte_destination',
+        'id_operateur_destination',
         'montant',
         'frais_appliques',
         'id_statut',
@@ -42,6 +43,39 @@ class OperationModel extends Model
                         ->orderBy('type_operation')
                         ->get()
                         ->getResultArray();
+    }
+
+    public function getOperationsPourGains(?string $dateDebut = null, ?string $dateFin = null): array
+    {
+        $builder = $this->db->table('Operation')
+            ->select('Operation.id_operation,
+                Operation.id_type_operation,
+                Operation.montant,
+                Operation.frais_appliques,
+                Operation.date_operation,
+                TypeOperation.libelle AS type_operation,
+                ClientSource.id_operateur AS id_operateur_source,
+                OperateurSource.nom AS nom_operateur_source,
+                Operation.id_operateur_destination,
+                OperateurDest.nom AS nom_operateur_destination')
+            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
+            ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
+            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
+            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
+            ->join('Operateur AS OperateurSource', 'OperateurSource.id_operateur = ClientSource.id_operateur', 'left')
+            ->join('Operateur AS OperateurDest', 'OperateurDest.id_operateur = Operation.id_operateur_destination', 'left')
+            ->where('statut_operation.libelle', 'reussie')
+            ->where('TypeOperation.libelle !=', 'depot');
+
+        if ($dateDebut) {
+            $builder->where('Operation.date_operation >=', $dateDebut);
+        }
+
+        if ($dateFin) {
+            $builder->where('Operation.date_operation <=', $dateFin);
+        }
+
+        return $builder->orderBy('Operation.date_operation', 'ASC')->get()->getResultArray();
     }
 
     public function getMontantsAEnvoyer(?string $dateDebut = null, ?string $dateFin = null): array

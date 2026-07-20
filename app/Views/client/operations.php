@@ -239,7 +239,82 @@
 </div>
 
 <script>
-	// Ton JavaScript reste inchangé.
+	document.addEventListener('DOMContentLoaded', function () {
+		const listeDestinataires = document.getElementById('liste-destinataires');
+		const boutonAjouter = document.getElementById('btn-ajouter-destinataire');
+		const montantInput = document.getElementById('montant_transfert');
+		const inclureFrais = document.getElementById('inclure_frais');
+		const resume = document.getElementById('resume-transfert');
+		const montantSaisi = document.getElementById('montant-saisi');
+		const nbDestinataires = document.getElementById('nb-destinataires');
+		const detailDestinataires = document.getElementById('detail-destinataires');
+
+		function mettreAJourResume() {
+			const lignes = listeDestinataires.querySelectorAll('.ligne-destinataire');
+			const nombres = Array.from(lignes)
+				.map((ligne) => ligne.querySelector('input[name="numero_destinataire[]"]')?.value.trim())
+				.filter(Boolean);
+
+			if (!nombres.length || !montantInput.value) {
+				resume.classList.add('d-none');
+				return;
+			}
+
+			resume.classList.remove('d-none');
+			montantSaisi.textContent = new Intl.NumberFormat('fr-FR').format(Number(montantInput.value || 0));
+			nbDestinataires.textContent = nombres.length;
+			detailDestinataires.innerHTML = nombres.map((numero, index) => {
+				const part = Number(montantInput.value || 0) / nombres.length;
+				return `<div class="text-muted">Destinataire ${index + 1} : ${numero} - ${new Intl.NumberFormat('fr-FR').format(part)} Ar</div>`;
+			}).join('');
+		}
+
+		function ajouterLigne() {
+			const premiereLigne = listeDestinataires.querySelector('.ligne-destinataire');
+			if (!premiereLigne) {
+				return;
+			}
+
+			const nouvelleLigne = premiereLigne.cloneNode(true);
+			const champ = nouvelleLigne.querySelector('input[name="numero_destinataire[]"]');
+
+			if (champ) {
+				champ.value = '';
+				champ.required = true;
+			}
+
+			listeDestinataires.appendChild(nouvelleLigne);
+			mettreAJourResume();
+		}
+
+		boutonAjouter?.addEventListener('click', ajouterLigne);
+
+		listeDestinataires.addEventListener('click', function (event) {
+			const boutonRetirer = event.target.closest('.btn-retirer-destinataire');
+			if (!boutonRetirer) {
+				return;
+			}
+
+			const lignes = listeDestinataires.querySelectorAll('.ligne-destinataire');
+			if (lignes.length === 1) {
+				const champ = lignes[0].querySelector('input[name="numero_destinataire[]"]');
+				if (champ) {
+					champ.value = '';
+				}
+				mettreAJourResume();
+				return;
+			}
+
+			boutonRetirer.closest('.ligne-destinataire')?.remove();
+			mettreAJourResume();
+		});
+
+		listeDestinataires.addEventListener('input', mettreAJourResume);
+		montantInput?.addEventListener('input', mettreAJourResume);
+		inclureFrais?.addEventListener('change', mettreAJourResume);
+
+		mettreAJourResume();
+	});
 </script>
 
 <?= $this->endSection() ?>
