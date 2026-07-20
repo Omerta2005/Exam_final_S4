@@ -54,7 +54,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark operator-navbar fixed-top">
     <div class="container">
         <a class="navbar-brand d-flex flex-column align-items-start" href="<?= base_url('operateur/baremeFrais') ?>">
-            <span>Espace opérateur</span>
+            <span>Espace opérateur Yas</span>
             <span class="operator-brand-subtitle">Gestion des frais, préfixes et gains</span>
         </a>
 
@@ -80,6 +80,10 @@
                 <li class="nav-item">
                     <a class="nav-link <?= str_starts_with($currentPath, 'operateur/comptes') ? 'active' : '' ?>"
                        href="<?= base_url('operateur/comptes') ?>">Comptes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link <?= str_starts_with($currentPath, 'operateur/commissions') ? 'active' : '' ?>"
+                       href="<?= base_url('operateur/commissions') ?>">Commissions</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"

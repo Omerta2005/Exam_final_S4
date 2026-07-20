@@ -19,43 +19,54 @@ class OperationModel extends Model
         'id_statut',
     ];
 
-    public function getGainsParOperateurEtType(?string $dateDebut = null, ?string $dateFin = null)
+    public function getGainsParOperateurEtType(?string $dateDebut = null, ?string $dateFin = null, ?int $idOperateur = null)
     {
-        $sql = "
-            SELECT
-                Operateur.id_operateur,
-                Operateur.nom AS nom_operateur,
-                TypeOperation.libelle AS type_operation,
-                SUM(Operation.frais_appliques) AS total_frais,
-                COUNT(Operation.id_operation) AS nombre_operations
-            FROM Operation
-            JOIN TypeOperation ON TypeOperation.id_type_operation = Operation.id_type_operation
-            JOIN statut_operation ON statut_operation.id_statut = Operation.id_statut
-            JOIN Compte ON Compte.id_compte = COALESCE(Operation.id_compte_source, Operation.id_compte_destination)
-            JOIN Client ON Client.id_client = Compte.id_client
-            JOIN Operateur ON Operateur.id_operateur = Client.id_operateur
-            WHERE statut_operation.libelle = 'reussie'
-            AND TypeOperation.libelle != 'depot'
-        ";
+        $builder = $this->db->table('vue_gains_operations')
+                            ->select('id_operateur, nom_operateur, type_operation, portee,
+                                    SUM(frais_appliques) as total_frais,
+                                    COUNT(id_operation) as nombre_operations');
 
-        $params = [];
+        if ($idOperateur !== null) {
+            $builder->where('id_operateur', $idOperateur);
+        }
 
         if ($dateDebut) {
-            $sql .= " AND Operation.date_operation >= ?";
-            $params[] = $dateDebut;
+            $builder->where('date_operation >=', $dateDebut);
         }
         if ($dateFin) {
-            $sql .= " AND Operation.date_operation <= ?";
-            $params[] = $dateFin;
+            $builder->where('date_operation <=', $dateFin);
         }
 
-        $sql .= " GROUP BY Operateur.id_operateur, TypeOperation.libelle
-                ORDER BY Operateur.nom, TypeOperation.libelle";
-
-        return $this->db->query($sql, $params)->getResultArray();
+        return $builder->groupBy('id_operateur, type_operation, portee')
+                        ->orderBy('nom_operateur')
+                        ->orderBy('type_operation')
+                        ->get()
+                        ->getResultArray();
     }
 
-    public function getGainsParType(?string $dateDebut = null, ?string $dateFin = null)
+    public function getMontantsAEnvoyer(?string $dateDebut = null, ?string $dateFin = null): array
+    {
+        $builder = $this->db->table('vue_transferts_inter_operateurs')
+                             ->select('nom_operateur_source, nom_operateur_dest,
+                                   SUM(montant) as montant_total,
+                                   COUNT(id_operation) as nombre_transferts');
+
+        if ($dateDebut) {
+            $builder->where('date_operation >=', $dateDebut);
+        }
+
+        if ($dateFin) {
+            $builder->where('date_operation <=', $dateFin);
+        }
+
+        return $builder->groupBy('nom_operateur_source, nom_operateur_dest')
+                        ->orderBy('nom_operateur_source')
+                        ->orderBy('nom_operateur_dest')
+                        ->get()
+                        ->getResultArray();
+    }
+
+    public function getGainsParType(?string $dateDebut = null, ?string $dateFin = null, ?int $idOperateur = null)
     {
         $builder = $this->select('TypeOperation.libelle as type_operation,
                                    SUM(Operation.frais_appliques) as total_frais,
@@ -64,6 +75,12 @@ class OperationModel extends Model
                          ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
                          ->where('statut_operation.libelle', 'reussie')
                          ->where('TypeOperation.libelle !=', 'depot'); // pas de frais sur les dépôts
+
+        if ($idOperateur !== null) {
+            $builder->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
+                    ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
+                    ->where('ClientSource.id_operateur', $idOperateur);
+        }
 
         if ($dateDebut) {
             $builder->where('Operation.date_operation >=', $dateDebut);
@@ -75,11 +92,17 @@ class OperationModel extends Model
         return $builder->groupBy('TypeOperation.libelle')->findAll();
     }
 
-    public function getGainTotal(?string $dateDebut = null, ?string $dateFin = null)
+    public function getGainTotal(?string $dateDebut = null, ?string $dateFin = null, ?int $idOperateur = null)
     {
         $builder = $this->select('SUM(frais_appliques) as total')
                          ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
                          ->where('statut_operation.libelle', 'reussie');
+
+        if ($idOperateur !== null) {
+            $builder->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
+                    ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
+                    ->where('ClientSource.id_operateur', $idOperateur);
+        }
 
         if ($dateDebut) {
             $builder->where('date_operation >=', $dateDebut);

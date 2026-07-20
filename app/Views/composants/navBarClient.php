@@ -7,7 +7,7 @@
 
 <a class="navbar-brand fw-bold d-flex flex-column align-items-start">
 
-        <span>Mobile Money</span>
+        <span>Yas Money</span>
         <span style="font-size:0.78rem; color: rgba(255,255,255,0.7); line-height:1;">Espace client</span>
 
 </a>

@@ -5,7 +5,7 @@
 
 
 <title>
-<?= $title ?? 'Mobile Money' ?>
+<?= $title ?? 'Yas Money' ?>
 </title>
 
 

@@ -1,6 +1,7 @@
 <?php $title = 'Barèmes de frais'; ?>
 <?php $this->extend('layout/layoutOperateur'); ?>
 <?php $this->section('content'); ?>
+
 <div class="container py-5">
     <style>
         body {
@@ -15,27 +16,29 @@
         }
         .page-header h2 { font-weight: 700; }
         .page-header .subtitle { opacity: 0.85; font-size: 0.95rem; }
-
         .btn-add {
             border-radius: 50px;
             padding: 0.6rem 1.4rem;
             font-weight: 600;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            white-space: nowrap;
         }
 
-        .operateur-block {
-            margin-bottom: 2.5rem;
+        .type-card {
+            border: none;
+            border-radius: 14px;
+            overflow: hidden;
+            transition: box-shadow 0.15s ease;
         }
-        .operateur-title {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: #1a56b0;
-            margin-bottom: 1rem;
+        .type-card:hover {
+            box-shadow: 0 10px 24px rgba(0,0,0,0.08) !important;
         }
-        .operateur-title .icon-badge {
+        .type-header {
+            background: #f8fafc;
+            padding: 1.1rem 1.5rem;
+            border-bottom: 1px solid #eef1f6;
+        }
+        .type-icon {
             width: 38px;
             height: 38px;
             border-radius: 10px;
@@ -45,55 +48,38 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
-        }
-
-        .type-card {
-            background: white;
-            border-radius: 14px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-            padding: 1.5rem;
-            margin-bottom: 1.2rem;
+            flex-shrink: 0;
         }
         .type-title {
-            font-weight: 600;
-            color: #344054;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-weight: 700;
+            color: #1a2b4a;
+            font-size: 1.05rem;
         }
-        .type-badge {
-            font-size: 0.75rem;
-            padding: 0.3em 0.7em;
-            border-radius: 50px;
+        .badge-count {
             font-weight: 600;
+            padding: 0.4em 0.9em;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            background: #eef2f8;
+            color: #2c7be5;
         }
 
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-        thead th {
-            background: #f8fafc;
+        .table-clean thead th {
             font-size: 0.78rem;
             text-transform: uppercase;
             letter-spacing: 0.04em;
             color: #667085;
             font-weight: 600;
-            padding: 0.7rem 1rem;
+            border-top: none;
             border-bottom: 1px solid #eef1f6;
         }
-        tbody td {
-            padding: 0.7rem 1rem;
-            border-bottom: 1px solid #f1f3f7;
-            font-size: 0.92rem;
+        .table-clean tbody td {
+            padding: 0.9rem 0.75rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #f2f4f8;
         }
-        tbody tr:last-child td { border-bottom: none; }
-        tbody tr:hover { background: #fafbfd; }
-
-        .amount { font-weight: 600; color: #344054; }
-        .fee-amount { font-weight: 700; color: #2c7be5; }
+        .table-clean tbody tr:last-child td { border-bottom: none; }
+        .table-clean tbody tr:hover { background: #f8fafc; }
 
         .btn-modifier {
             border-radius: 50px;
@@ -106,13 +92,16 @@
             background: white;
             padding: 4rem 2rem;
         }
-        .empty-state i { font-size: 3rem; color: #c3cbdb; }
+        .empty-state i {
+            font-size: 3rem;
+            color: #c3cbdb;
+        }
     </style>
 
-    <div class="page-header d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
+    <div class="page-header d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
         <div>
-            <h2 class="mb-1"><i class="bi bi-cash-coin me-2"></i>Barèmes de frais</h2>
-            <div class="subtitle">Grille tarifaire par opérateur et par type d'opération</div>
+            <h2 class="mb-1"><i class="bi bi-layers-fill me-2"></i>Barèmes de frais</h2>
+            <div class="subtitle">Tarification configurée uniquement pour <?= esc($nomOperateur) ?></div>
         </div>
         <a href="/operateur/baremeFrais/formMultiple" class="btn btn-light btn-add">
             <i class="bi bi-plus-circle me-1"></i> Ajouter plusieurs tranches
@@ -120,7 +109,7 @@
     </div>
 
     <?php if (session()->getFlashdata('errors')): ?>
-        <div class="alert alert-danger d-flex align-items-start gap-2 shadow-sm rounded-3">
+        <div class="alert alert-danger d-flex align-items-start gap-2 shadow-sm rounded-3 mb-4">
             <i class="bi bi-exclamation-triangle-fill mt-1"></i>
             <ul class="mb-0">
                 <?php foreach (session()->getFlashdata('errors') as $error): ?>
@@ -135,43 +124,38 @@
         <div class="empty-state text-center">
             <i class="bi bi-inbox d-block mb-3"></i>
             <h5 class="text-muted">Aucun barème enregistré</h5>
-            <p class="text-muted mb-4">Ajoute une première tranche de frais pour commencer.</p>
-            <a href="/operateur/baremeFrais/form" class="btn btn-primary btn-add">
-                <i class="bi bi-plus-circle me-1"></i> Ajouter une tranche
+            <p class="text-muted mb-4">Commence par ajouter des tranches de frais pour un type d'opération.</p>
+            <a href="/operateur/baremeFrais/formMultiple" class="btn btn-primary btn-add">
+                <i class="bi bi-plus-circle me-1"></i> Ajouter plusieurs tranches
             </a>
         </div>
 
     <?php else: ?>
 
-        <?php foreach ($groupes as $nomOperateur => $typesOperation): ?>
+        <?php foreach ($groupes as $libelleType => $tranches): ?>
+            <?php
+            $icones = [
+                'depot' => 'bi-download',
+                'retrait' => 'bi-upload',
+                'transfert' => 'bi-arrow-left-right',
+            ];
+            $icone = $icones[strtolower($libelleType)] ?? 'bi-list-ul';
+            ?>
 
-            <div class="operateur-block">
-                <div class="operateur-title">
-                    <span class="icon-badge"><i class="bi bi-building"></i></span>
-                    <?= esc($nomOperateur) ?>
+            <div class="card type-card shadow-sm mb-4">
+                <div class="type-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="type-icon">
+                            <i class="bi <?= $icone ?>"></i>
+                        </div>
+                        <span class="type-title"><?= esc(ucfirst($libelleType)) ?></span>
+                    </div>
+                    <span class="badge-count"><?= count($tranches) ?> tranche<?= count($tranches) > 1 ? 's' : '' ?></span>
                 </div>
 
-                <?php foreach ($typesOperation as $libelleType => $tranches): ?>
-
-                    <?php
-                        $icones = [
-                            'depot'      => 'bi-download',
-                            'retrait'    => 'bi-upload',
-                            'transfert'  => 'bi-arrow-left-right',
-                        ];
-                        $icone = $icones[strtolower($libelleType)] ?? 'bi-list-ul';
-                    ?>
-
-                    <div class="type-card">
-                        <div class="type-title">
-                            <i class="bi <?= $icone ?>"></i>
-                            <?= esc(ucfirst($libelleType)) ?>
-                            <span class="type-badge bg-primary-subtle text-primary ms-2">
-                                <?= count($tranches) ?> tranche<?= count($tranches) > 1 ? 's' : '' ?>
-                            </span>
-                        </div>
-
-                        <table>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-clean mb-0">
                             <thead>
                                 <tr>
                                     <th>Montant min</th>
@@ -183,9 +167,9 @@
                             <tbody>
                                 <?php foreach ($tranches as $tranche): ?>
                                     <tr>
-                                        <td class="amount"><?= number_format($tranche['montant_min'], 0, ',', ' ') ?> Ar</td>
-                                        <td class="amount"><?= number_format($tranche['montant_max'], 0, ',', ' ') ?> Ar</td>
-                                        <td class="fee-amount"><?= number_format($tranche['valeur_frais'], 0, ',', ' ') ?> Ar</td>
+                                        <td><?= number_format($tranche['montant_min'], 0, ',', ' ') ?> Ar</td>
+                                        <td><?= number_format($tranche['montant_max'], 0, ',', ' ') ?> Ar</td>
+                                        <td class="fw-semibold text-primary"><?= number_format($tranche['valeur_frais'], 0, ',', ' ') ?> Ar</td>
                                         <td class="text-end">
                                             <a href="/operateur/baremeFrais/form?id=<?= $tranche['id_bareme'] ?>"
                                                class="btn btn-outline-primary btn-sm btn-modifier">
@@ -197,13 +181,11 @@
                             </tbody>
                         </table>
                     </div>
-
-                <?php endforeach; ?>
+                </div>
             </div>
-
         <?php endforeach; ?>
 
     <?php endif; ?>
-
 </div>
+
 <?php $this->endSection(); ?>

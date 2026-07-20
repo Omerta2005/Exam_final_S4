@@ -18,13 +18,17 @@ class CompteModel extends Model
         'date_creation'
     ];
 
-    public function getAllWithClient(?string $recherche = null)
+    public function getAllWithClient(?string $recherche = null, ?int $idOperateur = null)
     {
         $builder = $this->select('Compte.id_compte, Compte.solde,
                                    Client.id_client, Client.numero_telephone, Client.nom,
                                    Operateur.nom as nom_operateur')
                          ->join('Client', 'Client.id_client = Compte.id_client')
                          ->join('Operateur', 'Operateur.id_operateur = Client.id_operateur');
+
+        if ($idOperateur !== null) {
+            $builder->where('Client.id_operateur', $idOperateur);
+        }
 
         if ($recherche) {
             $builder->like('Client.numero_telephone', $recherche);
@@ -33,15 +37,20 @@ class CompteModel extends Model
         return $builder->orderBy('Client.numero_telephone')->findAll();
     }
 
-    public function getDetailCompte(int $idCompte)
+    public function getDetailCompte(int $idCompte, ?int $idOperateur = null)
     {
-        return $this->select('Compte.id_compte, Compte.solde,
+        $builder = $this->select('Compte.id_compte, Compte.solde,
                                Client.id_client, Client.numero_telephone, Client.nom,
                                Operateur.nom as nom_operateur')
                      ->join('Client', 'Client.id_client = Compte.id_client')
                      ->join('Operateur', 'Operateur.id_operateur = Client.id_operateur')
-                     ->where('Compte.id_compte', $idCompte)
-                     ->first();
+                     ->where('Compte.id_compte', $idCompte);
+
+        if ($idOperateur !== null) {
+            $builder->where('Client.id_operateur', $idOperateur);
+        }
+
+        return $builder->first();
     }
 
     protected bool $allowEmptyInserts = false;

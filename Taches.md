@@ -1,4 +1,4 @@
-# Répartition des tâches — Simulateur Opérateur Mobile Money
+# Répartition des tâches — Simulateur OpérateurYas
 
 # V1
 
@@ -35,6 +35,8 @@
 - Historique des opérations
 
 ---
+
+# V2
 
 ## Miaro — Côté Opérateur
 - Configuration des préfixes des autres opérateurs (031, 032, ...)

@@ -35,17 +35,10 @@
             <form action="/operateur/baremeFrais/save" method="post">
 
                 <input type="hidden" name="id_bareme" value="<?= $bareme['id_bareme'] ?? '' ?>">
+                <input type="hidden" name="id_operateur" value="<?= $operateurYasId ?>">
 
-                <div class="mb-3">
-                    <label class="form-label">Opérateur</label>
-                    <select class="form-select" name="id_operateur" required>
-                        <?php foreach ($operateurs as $op): ?>
-                            <option value="<?= $op['id_operateur'] ?>"
-                                <?= (isset($bareme) && $bareme['id_operateur'] == $op['id_operateur']) ? 'selected' : '' ?>>
-                                <?= esc($op['nom']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                <div class="alert alert-light border mb-3">
+                    Opérateur fixé : <strong><?= esc($nomOperateur) ?></strong>
                 </div>
 
                 <div class="mb-3">
