@@ -1893,3 +1893,106 @@ DEBUG - 2026-07-20 18:56:36 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-20 18:56:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 18:56:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-20 18:56:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:02:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:03:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 19:03:39 --> ErrorException: Undefined variable $operateur
+[Method: GET, Route: operateur/commissions/config]
+in APPPATH/Views/operateur/commissions/config.php on line 110.
+ 1 APPPATH/Views/operateur/commissions/config.php(110): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/config.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CommissionInterOperateurController.php(34): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->config()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 19:04:00 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 19:04:00 --> ErrorException: Undefined variable $operateur
+[Method: GET, Route: operateur/commissions/config]
+in APPPATH/Views/operateur/commissions/config.php on line 110.
+ 1 APPPATH/Views/operateur/commissions/config.php(110): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/config.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CommissionInterOperateurController.php(34): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->config()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 19:09:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 19:09:11 --> ErrorException: Undefined variable $operateur
+[Method: GET, Route: operateur/commissions/config]
+in APPPATH/Views/operateur/commissions/config.php on line 110.
+ 1 APPPATH/Views/operateur/commissions/config.php(110): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/config.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CommissionInterOperateurController.php(34): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->config()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 19:09:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 19:09:15 --> ErrorException: Undefined variable $operateur
+[Method: GET, Route: operateur/commissions/config]
+in APPPATH/Views/operateur/commissions/config.php on line 110.
+ 1 APPPATH/Views/operateur/commissions/config.php(110): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/config.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CommissionInterOperateurController.php(34): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->config()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 19:09:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 19:09:15 --> ErrorException: Undefined variable $operateur
+[Method: GET, Route: operateur/commissions/config]
+in APPPATH/Views/operateur/commissions/config.php on line 110.
+ 1 APPPATH/Views/operateur/commissions/config.php(110): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/config.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CommissionInterOperateurController.php(34): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->config()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 19:09:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 19:09:24 --> ErrorException: Undefined variable $operateur
+[Method: GET, Route: operateur/commissions/config]
+in APPPATH/Views/operateur/commissions/config.php on line 110.
+ 1 APPPATH/Views/operateur/commissions/config.php(110): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/commissions/config.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CommissionInterOperateurController.php(34): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CommissionInterOperateurController->config()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-20 19:09:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:13:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:13:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:31:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:31:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 19:31:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
