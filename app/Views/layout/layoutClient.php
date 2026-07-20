@@ -12,9 +12,21 @@
 
 <link rel="stylesheet" href="<?= base_url('css/bootstrap.min.css') ?>">
 
+<style>
+body {
+	background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%);
+	min-height: 100vh;
+	padding-top: 84px;
+}
+
+.app-container {
+	padding-bottom: 2rem;
+}
+</style>
+
 </head>
 
-<body class="bg-light">
+<body>
 
 <?= $this->include('composants/navBarClient') ?>
 

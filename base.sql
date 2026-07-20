@@ -36,11 +36,13 @@ CREATE TABLE TypeOperation (
 
 CREATE TABLE BaremeFrais (
     id_bareme           INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_operateur        INTEGER NOT NULL,
     id_type_operation   INTEGER NOT NULL,
     montant_min         REAL NOT NULL,
     montant_max         REAL NOT NULL,
     valeur_frais        REAL NOT NULL,
     FOREIGN KEY (id_type_operation) REFERENCES TypeOperation(id_type_operation),
+    FOREIGN KEY (id_operateur) REFERENCES Operateur(id_operateur),
     CHECK (montant_max > montant_min)
 );
 
@@ -84,32 +86,41 @@ INSERT INTO Operateur (nom) VALUES ('Mobile Money Sim');
 INSERT INTO Prefixe (id_operateur, code) VALUES (1, '033');
 INSERT INTO Prefixe (id_operateur, code) VALUES (1, '037');
 
-INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_frais) VALUES
-(2, 100,       1000,     50),
-(2, 1001,      5000,     50),
-(2, 5001,      10000,    100),
-(2, 10001,     25000,    200),
-(2, 25001,     50000,    400),
-(2, 50001,     100000,   800),
-(2, 100001,    250000,   1500),
-(2, 250001,    500000,   1500),
-(2, 500001,    1000000,  2500),
-(2, 1000001,   2000000,  3000);
+INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_frais, id_operateur) VALUES
+(2, 100,       1000,     50, 1),
+(2, 1001,      5000,     50, 1),
+(2, 5001,      10000,    100, 1),
+(2, 10001,     25000,    200, 1),
+(2, 25001,     50000,    400, 1),
+(2, 50001,     100000,   800, 1),
+(2, 100001,    250000,   1500, 1),
+(2, 250001,    500000,   1500, 1),
+(2, 500001,    1000000,  2500, 1),
+(2, 1000001,   2000000,  3000, 1);
 
-INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_frais) VALUES
-(3, 100,       1000,     50),
-(3, 1001,      5000,     50),
-(3, 5001,      10000,    100),
-(3, 10001,     25000,    200),
-(3, 25001,     50000,    400),
-(3, 50001,     100000,   800),
-(3, 100001,    250000,   1500),
-(3, 250001,    500000,   1500),
-(3, 500001,    1000000,  2500),
-(3, 1000001,   2000000,  3000);
+INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_frais, id_operateur) VALUES
+(3, 100,       1000,     50, 1),
+(3, 1001,      5000,     50, 1),
+(3, 5001,      10000,    100, 1),
+(3, 10001,     25000,    200, 1),
+(3, 25001,     50000,    400, 1),
+(3, 50001,     100000,   800, 1),
+(3, 100001,    250000,   1500, 1),
+(3, 250001,    500000,   1500, 1),
+(3, 500001,    1000000,  2500, 1),
+(3, 1000001,   2000000,  3000, 1);
 
-ALTER TABLE BaremeFrais 
-ADD COLUMN id_operateur INTEGER REFERENCES Operateur(id_operateur);
+INSERT INTO Operateur (nom) VALUES 
+('Orange'),
+('Yas'),
+('Airtel');
 
-UPDATE BaremeFrais
-SET id_operateur = 1;
+
+INSERT INTO Prefixe (id_operateur, code) VALUES
+(1, '032'),
+(1, '037'),
+
+(2, '038'),
+(2, '034'),
+
+(3, '033');

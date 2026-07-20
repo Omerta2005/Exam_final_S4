@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter des tranches de frais</title>
-    <link href="<?= base_url('css/bootstrap.min.css') ?>" rel="stylesheet">
+<?php $title = 'Ajouter des tranches de frais'; ?>
+<?php $this->extend('layout/layoutOperateur'); ?>
+<?php $this->section('content'); ?>
+<div class="container">
     <style>
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%);
@@ -105,10 +102,7 @@
             font-weight: 500;
         }
     </style>
-</head>
-<body>
 
-    <div class="container">
         <div class="form-card">
 
             <div class="form-card-header">
@@ -194,7 +188,8 @@
         </div>
     </div>
 
-    <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
+<?php $this->endSection(); ?>
+<?php $this->section('scripts'); ?>
     <script>
         function ajouterLigne() {
             const tbody = document.querySelector('#table-tranches tbody');
@@ -210,6 +205,4 @@
             }
         }
     </script>
-
-</body>
-</html>
+<?php $this->endSection(); ?>

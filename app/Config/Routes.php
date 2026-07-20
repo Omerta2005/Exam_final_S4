@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'ClientController::index');
+$routes->get('client/login', 'ClientController::index');
 $routes->group('client', function($routes) {
     $routes->post('login', 'ClientController::login');
     $routes->get('solde', 'ClientController::solde');
@@ -16,7 +17,8 @@ $routes->group('client', function($routes) {
     $routes->get('historique', 'ClientController::historique');
 });
 $routes->get('/bareme-frais', 'BaremeFraisController::index');
-$routes->get('/', 'BaremeFraisController::index');
+$routes->get('operateur/login', 'OperateurAuthController::index');
+$routes->get('operateur', 'OperateurAuthController::index');
 
 $routes->group('operateur/prefixe', function ($routes) {
     $routes->get('/', 'PrefixeController::index');

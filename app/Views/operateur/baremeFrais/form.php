@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $bareme ? 'Modifier' : 'Ajouter' ?> une tranche</title>
-    <link href="<?= base_url('css/bootstrap.min.css') ?>" rel="stylesheet">
+<?php $title = $bareme ? 'Modifier une tranche' : 'Ajouter une tranche'; ?>
+<?php $this->extend('layout/layoutOperateur'); ?>
+<?php $this->section('content'); ?>
+<div class="container">
     <style>
         body { background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%); min-height: 100vh; }
         .form-card { max-width: 520px; margin: 4rem auto; background: white; border-radius: 16px;
@@ -17,10 +14,6 @@
         .form-control, .form-select { border-radius: 10px; padding: 0.65rem 0.9rem; border: 1px solid #d9dfe8; }
         .btn-submit { border-radius: 50px; padding: 0.7rem 1.6rem; font-weight: 600; }
     </style>
-</head>
-<body>
-
-<div class="container">
     <div class="form-card">
 
         <div class="form-card-header">
@@ -95,6 +88,4 @@
         </div>
     </div>
 </div>
-
-</body>
-</html>
+<?php $this->endSection(); ?>

@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des préfixes</title>
-    <link href="<?= base_url('css/bootstrap.min.css') ?>" rel="stylesheet">
+<?php $title = 'Liste des préfixes'; ?>
+<?php $this->extend('layout/layoutOperateur'); ?>
+<?php $this->section('content'); ?>
+<div class="container py-5">
     <style>
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%);
@@ -76,10 +73,6 @@
             font-size: 0.9rem;
         }
     </style>
-</head>
-<body>
-
-<div class="container py-5">
 
     <div class="page-header d-flex justify-content-between align-items-center mb-5 flex-wrap gap-3">
         <div>
@@ -160,8 +153,4 @@
     <?php endif; ?>
 
 </div>
-
-<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
-
-</body>
-</html>
+<?php $this->endSection(); ?>

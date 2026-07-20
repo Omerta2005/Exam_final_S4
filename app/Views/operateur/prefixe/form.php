@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= isset($prefixe) && $prefixe ? 'Modifier' : 'Ajouter' ?> un préfixe</title>
-    <link href="<?= base_url('css/bootstrap.min.css') ?>" rel="stylesheet">
+<?php $title = isset($prefixe) && $prefixe ? 'Modifier un préfixe' : 'Ajouter un préfixe'; ?>
+<?php $this->extend('layout/layoutOperateur'); ?>
+<?php $this->section('content'); ?>
+<div class="container">
     <style>
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%);
@@ -66,10 +63,6 @@
             font-weight: 500;
         }
     </style>
-</head>
-<body>
-
-<div class="container">
     <div class="form-card">
 
         <div class="form-card-header">
@@ -147,8 +140,4 @@
         </div>
     </div>
 </div>
-
-<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
-
-</body>
-</html>
+<?php $this->endSection(); ?>

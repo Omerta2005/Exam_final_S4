@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Situation des gains</title>
-    <link href="<?= base_url('css/bootstrap.min.css') ?>" rel="stylesheet">
+<?php $title = 'Situation des gains'; ?>
+<?php $this->extend('layout/layoutOperateur'); ?>
+<?php $this->section('content'); ?>
+<div class="container py-5">
     <style>
         body { background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%); min-height: 100vh; }
         .page-header {
@@ -41,10 +38,6 @@
         .type-count { color: #667085; font-size: 0.82rem; }
         .type-amount { font-weight: 700; color: #344054; }
     </style>
-</head>
-<body>
-
-<div class="container py-5">
 
     <div class="page-header mb-4">
         <h2 class="mb-1">Situation des gains</h2>
@@ -99,6 +92,4 @@
     <?php endif; ?>
 
 </div>
-
-</body>
-</html>
+<?php $this->endSection(); ?>

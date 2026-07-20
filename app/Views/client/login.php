@@ -119,6 +119,15 @@
                     </form>
 
 
+                    <div class="text-center mt-4 pt-3 border-top">
+
+                        <a href="<?= base_url('operateur/login') ?>" class="text-decoration-none fw-semibold">
+                            Basculer en mode opérateur
+                        </a>
+
+                    </div>
+
+
 
                 </div>
 
