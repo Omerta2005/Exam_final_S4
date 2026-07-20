@@ -12,11 +12,11 @@ class BaremeFraisModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        id_type_operation,
-        montant_min,
-        montant_max,
-        valeur_frais
+    protected $allowedFields = [
+        'id_type_operation',
+        'montant_min',
+        'montant_max',
+        'valeur_frais'
     ];
 
     protected bool $allowEmptyInserts = false;

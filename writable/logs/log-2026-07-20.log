@@ -1,0 +1,22 @@
+CRITICAL - 2026-07-20 06:32:38 --> Error: Undefined constant "App\Models\id_type_operation"
+[Method: GET, Route: /]
+in APPPATH/Models/BaremeFraisModel.php on line 16.
+ 1 APPPATH/Controllers/BaremeFraisController.php(13): [constant expression]()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\BaremeFraisController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+CRITICAL - 2026-07-20 06:33:15 --> Error: Undefined constant "App\Models\id_type_operation"
+[Method: GET, Route: /]
+in APPPATH/Models/BaremeFraisModel.php on line 16.
+ 1 APPPATH/Controllers/BaremeFraisController.php(13): [constant expression]()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\BaremeFraisController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')

@@ -13,9 +13,9 @@ class ClientModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        numero_telephone,
-        nom,
-        id_operateur
+        'numero_telephone',
+        'nom',
+        'id_operateur'
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -13,9 +13,9 @@ class CompteModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        id_client,
-        solde,
-        date_creation
+        'id_client',
+        'solde',
+        'date_creation'
     ];
 
     protected bool $allowEmptyInserts = false;

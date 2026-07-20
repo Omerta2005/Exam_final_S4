@@ -13,13 +13,13 @@ class OperationModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        id_type_operation,
-        id_compte_source,
-        id_compte_destination,
-        montant,
-        frais_appliques,
-        date_operation,
-        id_statut
+        'id_type_operation',
+        'id_compte_source',
+        'id_compte_destination',
+        'montant',
+        'frais_appliques',
+        'date_operation',
+        'id_statut'
     ];
 
     protected bool $allowEmptyInserts = false;

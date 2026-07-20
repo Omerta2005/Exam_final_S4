@@ -13,9 +13,9 @@ class StatusOperationModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        id_operateur,
-        code,
-        actif
+        'id_operateur',
+        'code',
+        'actif'
     ];
 
     protected bool $allowEmptyInserts = false;
