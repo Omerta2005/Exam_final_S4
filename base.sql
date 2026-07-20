@@ -82,9 +82,19 @@ INSERT INTO TypeOperation (libelle) VALUES ('depot');
 INSERT INTO TypeOperation (libelle) VALUES ('retrait');
 INSERT INTO TypeOperation (libelle) VALUES ('transfert');
 
-INSERT INTO Operateur (nom) VALUES ('Mobile Money Sim');
-INSERT INTO Prefixe (id_operateur, code) VALUES (1, '033');
-INSERT INTO Prefixe (id_operateur, code) VALUES (1, '037');
+INSERT INTO Operateur (nom) VALUES 
+('Orange'),
+('Yas'),
+('Airtel');
+
+INSERT INTO Prefixe (id_operateur, code) VALUES
+(1, '032'),
+(1, '037'),
+
+(2, '038'),
+(2, '034'),
+
+(3, '033');
 
 INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_frais, id_operateur) VALUES
 (2, 100,       1000,     50, 1),
@@ -109,18 +119,3 @@ INSERT INTO BaremeFrais (id_type_operation, montant_min, montant_max, valeur_fra
 (3, 250001,    500000,   1500, 1),
 (3, 500001,    1000000,  2500, 1),
 (3, 1000001,   2000000,  3000, 1);
-
-INSERT INTO Operateur (nom) VALUES 
-('Orange'),
-('Yas'),
-('Airtel');
-
-
-INSERT INTO Prefixe (id_operateur, code) VALUES
-(1, '032'),
-(1, '037'),
-
-(2, '038'),
-(2, '034'),
-
-(3, '033');
