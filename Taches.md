@@ -10,6 +10,7 @@
 
 - Architecture, git (Manda)
 - Le modèle de données : `Client`, `Compte`, `Opération`, `TypeOpération`, `Barème`, `Préfixe`, ......
+- Base de donne
 - Les contrats d'interface entre les deux modules, notamment :
   - `calculerFrais(typeOperation, montant) → montantFrais`
 
