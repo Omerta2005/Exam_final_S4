@@ -3,38 +3,36 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\HTTP\ResponseInterface;
+use App\Models\CompteModel;
+use App\Models\OperationModel;
 
 class CompteController extends BaseController
 {
     public function index()
     {
-        //
+        $recherche = $this->request->getGet('recherche');
+
+        $model = new CompteModel();
+
+        return view('operateur/comptes/index', [
+            'comptes'   => $model->getAllWithClient($recherche),
+            'recherche' => $recherche,
+        ]);
     }
-    public function create($id_client)
+
+    public function show($idCompte)
     {
-        $db = \Config\Database::connect();
+        $compteModel = new CompteModel();
+        $operationModel = new OperationModel();
+        $compte = $compteModel->getDetailCompte($idCompte);
 
-        $compte = $db->table('Compte')
-            ->where('id_client', $id_client)
-            ->get()
-            ->getRowArray();
-
-        if ($compte) {
-            return $compte;
+        if (! $compte) {
+            return redirect()->to('/operateur/comptes')->with('errors', ['Compte introuvable.']);
         }
 
-        $data = [
-            'id_client' => $id_client,
-            'solde' => 0
-        ];
-
-        $db->table('Compte')->insert($data);
-
-        return [
-            'id_compte' => $db->insertID(),
-            'id_client' => $id_client,
-            'solde' => 0
-        ];
+        return view('operateur/comptes/show', [
+            'compte'     => $compte,
+            'historique' => $operationModel->getHistoriqueParCompte($idCompte),
+        ]);
     }
 }
