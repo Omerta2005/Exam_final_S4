@@ -28,20 +28,15 @@ body {
 
 <body>
 
-<?= $this->include('composants/navBarClient') ?>
+    <?= $this->include('composants/navBarClient') ?>
+    <div class="app-container">
+        <?= $this->renderSection('content') ?>
+    </div>
 
+    <!-- Bootstrap JS local (necessaire pour les onglets, dropdowns, alertes fermables, etc.) -->
+    <script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
 
-<div class="app-container">
-
-<?= $this->renderSection('content') ?>
-
-</div>
-
-
-<!-- Bootstrap JS local (necessaire pour les onglets, dropdowns, alertes fermables, etc.) -->
-<script src="<?= base_url('js/bootstrap.bundle.min.js') ?>"></script>
-
-<?= $this->renderSection('scripts') ?>
+    <?= $this->renderSection('scripts') ?>
 
 </body>
 

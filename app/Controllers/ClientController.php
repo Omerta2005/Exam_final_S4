@@ -10,6 +10,8 @@ use App\Models\BaremeFraisModel;
 
 class ClientController extends BaseController
 {
+    private const OPERATEUR_YAS_ID = 2;
+
     public function index()
     {
         return view('client/login');
@@ -31,6 +33,12 @@ class ClientController extends BaseController
         $client = $clientModel->where('numero_telephone', $numero_telephone)->first();
 
         if ($client) {
+            if ((int) $client['id_operateur'] !== self::OPERATEUR_YAS_ID) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'Seuls les clients Yas peuvent se connecter à cet espace.');
+            }
+
             $this->creerSession($client);
             return redirect()->to(base_url('client/solde'));
         }
@@ -40,7 +48,13 @@ class ClientController extends BaseController
         if (!$operateur) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Operateur non reconnu pour ce numero.');
+                ->with('error', 'Seuls les clients Yas peuvent se connecter à cet espace.');
+        }
+
+        if ((int) $operateur['id_operateur'] !== self::OPERATEUR_YAS_ID) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Seuls les clients Yas peuvent se connecter à cet espace.');
         }
 
         $data = [
@@ -372,6 +386,7 @@ class ClientController extends BaseController
 
         $id_client = session()->get('id_client');
         $db        = \Config\Database::connect();
+        $idOperateurExpediteur = (int) session()->get('id_operateur');
 
         $compteExpediteur = $db->table('Compte')->where('id_client', $id_client)->get()->getRowArray();
 
@@ -390,26 +405,51 @@ class ClientController extends BaseController
         // avant de toucher a la base, pour pouvoir tout valider en un bloc.
         $parts      = [];
         $totalDebit = 0.0;
+        $destinationsAutreOperateur = 0;
 
         foreach ($numerosDestinataires as $numero) {
 
-            $destinataire = $clientModel->where('numero_telephone', $numero)->first();
+            $operateurDestinataire = $this->getOperateurByNumero($numero);
 
-            if (!$destinataire) {
-                return redirect()->back()->with('error', 'Ce numero ne correspond a aucun client Mobile Money : ' . $numero);
+            if (!$operateurDestinataire) {
+                return redirect()->back()->with('error', 'Ce numero ne correspond a aucun operateur Mobile Money : ' . $numero);
             }
 
-            $compteDestinataire = $db->table('Compte')->where('id_client', $destinataire['id_client'])->get()->getRowArray();
+            $estMemeOperateur = ((int) $operateurDestinataire['id_operateur'] === $idOperateurExpediteur);
 
-            if (!$compteDestinataire) {
-                return redirect()->back()->with('error', 'Compte introuvable pour : ' . $numero);
+            if (! $estMemeOperateur && count($numerosDestinataires) > 1) {
+                return redirect()->back()->with(
+                    'error',
+                    'Un transfert vers un autre operateur doit avoir un seul destinataire.'
+                );
+            }
+
+            $destinataire = null;
+            $compteDestinataire = null;
+
+            if ($estMemeOperateur) {
+                $destinataire = $clientModel->where('numero_telephone', $numero)->first();
+
+                if (!$destinataire) {
+                    return redirect()->back()->with('error', 'Ce numero ne correspond a aucun client Mobile Money : ' . $numero);
+                }
+
+                $compteDestinataire = $db->table('Compte')->where('id_client', $destinataire['id_client'])->get()->getRowArray();
+
+                if (!$compteDestinataire) {
+                    return redirect()->back()->with('error', 'Compte introuvable pour : ' . $numero);
+                }
+
+                if ((int) $destinataire['id_operateur'] !== $idOperateurExpediteur) {
+                    return redirect()->back()->with('error', 'Ce numero n\'appartient pas a Yas.');
+                }
             }
 
             // Frais de retrait futurs du destinataire, couverts si la case est cochee
             $fraisRetraitCouvert = 0.0;
             if ($inclureFrais) {
                 $fraisRetraitCouvert = $baremeFraisModel->calculerFrais(
-                    $destinataire['id_operateur'],
+                    $operateurDestinataire['id_operateur'],
                     OperationModel::TYPE_RETRAIT,
                     $montantParPersonne
                 );
@@ -417,33 +457,47 @@ class ClientController extends BaseController
 
             $montantEnvoye = $montantParPersonne + $fraisRetraitCouvert;
 
-            // Frais de transfert a la charge de l'expediteur pour cette part
-            $bareme = $baremeFraisModel
-                ->where('id_operateur', session()->get('id_operateur'))
-                ->where('id_type_operation', OperationModel::TYPE_TRANSFERT)
-                ->where('montant_min <=', $montantEnvoye)
-                ->where('montant_max >=', $montantEnvoye)
-                ->first();
+            if (! $estMemeOperateur) {
+                $fraisTransfert = $baremeFraisModel->calculerFrais(
+                    $idOperateurExpediteur,
+                    OperationModel::TYPE_TRANSFERT,
+                    $montantEnvoye,
+                    (int) $operateurDestinataire['id_operateur']
+                );
 
-            if (!$bareme) {
-                $operationModel->insert([
-                    'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
-                    'id_compte_source'       => $compteExpediteur['id_compte'],
-                    'id_compte_destination'  => $compteDestinataire['id_compte'],
-                    'montant'                => $montantEnvoye,
-                    'frais_appliques'        => 0,
-                    'id_statut'              => OperationModel::STATUT_ANNULEE,
-                ]);
+                if ($fraisTransfert <= 0) {
+                    return redirect()->back()->with('error', 'Aucun bareme de frais de transfert defini pour ce montant. Operation annulee.');
+                }
+            } else {
+                // Meme operateur : on garde le calcul simple, sans commission additionnelle.
+                $bareme = $baremeFraisModel
+                    ->where('id_operateur', $idOperateurExpediteur)
+                    ->where('id_type_operation', OperationModel::TYPE_TRANSFERT)
+                    ->where('montant_min <=', $montantEnvoye)
+                    ->where('montant_max >=', $montantEnvoye)
+                    ->first();
 
-                return redirect()->back()->with('error', 'Aucun bareme de frais de transfert defini pour ce montant. Operation annulee.');
+                if (!$bareme) {
+                    $operationModel->insert([
+                        'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
+                        'id_compte_source'       => $compteExpediteur['id_compte'],
+                        'id_compte_destination'  => $compteDestinataire['id_compte'],
+                        'montant'                => $montantEnvoye,
+                        'frais_appliques'        => 0,
+                        'id_statut'              => OperationModel::STATUT_ANNULEE,
+                    ]);
+
+                    return redirect()->back()->with('error', 'Aucun bareme de frais de transfert defini pour ce montant. Operation annulee.');
+                }
+
+                $fraisTransfert = (float) $bareme['valeur_frais'];
             }
-
-            $fraisTransfert = (float) $bareme['valeur_frais'];
 
             $parts[] = [
                 'compte_destinataire' => $compteDestinataire,
                 'montant_envoye'      => $montantEnvoye,
                 'frais_transfert'     => $fraisTransfert,
+                'est_meme_operateur'  => $estMemeOperateur,
             ];
 
             $totalDebit += $montantEnvoye + $fraisTransfert;
@@ -477,14 +531,16 @@ class ClientController extends BaseController
 
         foreach ($parts as $part) {
 
-            $db->table('Compte')
-                ->where('id_compte', $part['compte_destinataire']['id_compte'])
-                ->update(['solde' => $part['compte_destinataire']['solde'] + $part['montant_envoye']]);
+            if ($part['est_meme_operateur']) {
+                $db->table('Compte')
+                    ->where('id_compte', $part['compte_destinataire']['id_compte'])
+                    ->update(['solde' => $part['compte_destinataire']['solde'] + $part['montant_envoye']]);
+            }
 
             $operationModel->insert([
                 'id_type_operation'      => OperationModel::TYPE_TRANSFERT,
                 'id_compte_source'       => $compteExpediteur['id_compte'],
-                'id_compte_destination'  => $part['compte_destinataire']['id_compte'],
+                'id_compte_destination'  => $part['est_meme_operateur'] ? $part['compte_destinataire']['id_compte'] : null,
                 'montant'                => $part['montant_envoye'],
                 'frais_appliques'        => $part['frais_transfert'],
                 'id_statut'              => OperationModel::STATUT_REUSSIE,
