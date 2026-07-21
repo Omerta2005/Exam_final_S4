@@ -14,145 +14,12 @@ class OperationModel extends Model
         'id_type_operation',
         'id_compte_source',
         'id_compte_destination',
-        'id_operateur_destination',
         'montant',
         'frais_appliques',
         'id_statut',
     ];
 
-    public function getGainsParOperateurEtType(?string $dateDebut = null, ?string $dateFin = null, ?int $idOperateur = null)
-    {
-        $builder = $this->db->table('vue_gains_operations')
-                            ->select('id_operateur, nom_operateur, type_operation, portee,
-                                    SUM(frais_appliques) as total_frais,
-                                    COUNT(id_operation) as nombre_operations');
-
-        if ($idOperateur !== null) {
-            $builder->where('id_operateur', $idOperateur);
-        }
-
-        if ($dateDebut) {
-            $builder->where('date_operation >=', $dateDebut);
-        }
-        if ($dateFin) {
-            $builder->where('date_operation <=', $dateFin);
-        }
-
-        return $builder->groupBy('id_operateur, type_operation, portee')
-                        ->orderBy('nom_operateur')
-                        ->orderBy('type_operation')
-                        ->get()
-                        ->getResultArray();
-    }
-
-    public function getOperationsPourGains(?string $dateDebut = null, ?string $dateFin = null): array
-    {
-        $builder = $this->db->table('Operation')
-            ->select('Operation.id_operation,
-                Operation.id_type_operation,
-                Operation.montant,
-                Operation.frais_appliques,
-                Operation.date_operation,
-                TypeOperation.libelle AS type_operation,
-                ClientSource.id_operateur AS id_operateur_source,
-                OperateurSource.nom AS nom_operateur_source,
-                Operation.id_operateur_destination,
-                OperateurDest.nom AS nom_operateur_destination')
-            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
-            ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
-            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
-            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
-            ->join('Operateur AS OperateurSource', 'OperateurSource.id_operateur = ClientSource.id_operateur', 'left')
-            ->join('Operateur AS OperateurDest', 'OperateurDest.id_operateur = Operation.id_operateur_destination', 'left')
-            ->where('statut_operation.libelle', 'reussie')
-            ->where('TypeOperation.libelle !=', 'depot');
-
-        if ($dateDebut) {
-            $builder->where('Operation.date_operation >=', $dateDebut);
-        }
-
-        if ($dateFin) {
-            $builder->where('Operation.date_operation <=', $dateFin);
-        }
-
-        return $builder->orderBy('Operation.date_operation', 'ASC')->get()->getResultArray();
-    }
-
-    public function getMontantsAEnvoyer(?string $dateDebut = null, ?string $dateFin = null): array
-    {
-        $builder = $this->db->table('vue_transferts_inter_operateurs')
-                             ->select('nom_operateur_source, nom_operateur_dest,
-                                   SUM(montant) as montant_total,
-                                   COUNT(id_operation) as nombre_transferts');
-
-        if ($dateDebut) {
-            $builder->where('date_operation >=', $dateDebut);
-        }
-
-        if ($dateFin) {
-            $builder->where('date_operation <=', $dateFin);
-        }
-
-        return $builder->groupBy('nom_operateur_source, nom_operateur_dest')
-                        ->orderBy('nom_operateur_source')
-                        ->orderBy('nom_operateur_dest')
-                        ->get()
-                        ->getResultArray();
-    }
-
-    public function getGainsParType(?string $dateDebut = null, ?string $dateFin = null, ?int $idOperateur = null)
-    {
-        $builder = $this->select('TypeOperation.libelle as type_operation,
-                                   SUM(Operation.frais_appliques) as total_frais,
-                                   COUNT(Operation.id_operation) as nombre_operations')
-                         ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
-                         ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
-                         ->where('statut_operation.libelle', 'reussie')
-                         ->where('TypeOperation.libelle !=', 'depot'); // pas de frais sur les dépôts
-
-        if ($idOperateur !== null) {
-            $builder->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
-                    ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
-                    ->where('ClientSource.id_operateur', $idOperateur);
-        }
-
-        if ($dateDebut) {
-            $builder->where('Operation.date_operation >=', $dateDebut);
-        }
-        if ($dateFin) {
-            $builder->where('Operation.date_operation <=', $dateFin);
-        }
-
-        return $builder->groupBy('TypeOperation.libelle')->findAll();
-    }
-
-    public function getGainTotal(?string $dateDebut = null, ?string $dateFin = null, ?int $idOperateur = null)
-    {
-        $builder = $this->select('SUM(frais_appliques) as total')
-                         ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
-                         ->where('statut_operation.libelle', 'reussie');
-
-        if ($idOperateur !== null) {
-            $builder->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
-                    ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
-                    ->where('ClientSource.id_operateur', $idOperateur);
-        }
-
-        if ($dateDebut) {
-            $builder->where('date_operation >=', $dateDebut);
-        }
-        if ($dateFin) {
-            $builder->where('date_operation <=', $dateFin);
-        }
-
-        $result = $builder->first();
-        return $result['total'] ?? 0;
-    }
-
     protected bool $allowEmptyInserts = false;
-
-    // Dates : la colonne date_operation a deja un DEFAULT en base (SQLite),
-    // on laisse le SGBD la remplir plutot que de gerer un timestamp CI ici.
     protected $useTimestamps = false;
 
     // Constantes correspondant aux lignes inserees dans TypeOperation
@@ -166,25 +33,6 @@ class OperationModel extends Model
     public const STATUT_ANNULEE    = 3;
 
     /**
-     * Calcule les frais a appliquer pour un type d'operation et un montant donnes,
-     * en se basant sur la grille BaremeFrais. Retourne 0 si aucune tranche ne correspond
-     * (c'est le cas du depot, qui n'a pas de bareme).
-     */
-    public function getFrais(int $id_type_operation, float $montant): float
-    {
-        $db = \Config\Database::connect();
-
-        $bareme = $db->table('BaremeFrais')
-            ->where('id_type_operation', $id_type_operation)
-            ->where('montant_min <=', $montant)
-            ->where('montant_max >=', $montant)
-            ->get()
-            ->getRowArray();
-
-        return $bareme ? (float) $bareme['valeur_frais'] : 0.0;
-    }
-
-    /**
      * Historique des operations d'un client : toutes les operations ou son compte
      * est source (retrait, transfert envoye) ou destination (depot, transfert recu).
      */
@@ -192,7 +40,6 @@ class OperationModel extends Model
     {
         $db = \Config\Database::connect();
 
-        // On recupere d'abord le(s) id_compte du client (normalement un seul)
         $comptes = $db->table('Compte')->where('id_client', $id_client)->get()->getResultArray();
         $idsComptes = array_column($comptes, 'id_compte');
 
@@ -200,7 +47,7 @@ class OperationModel extends Model
             return [];
         }
 
-        $builder = $db->table('Operation')
+        $resultats = $db->table('Operation')
             ->select('
                 Operation.id_operation,
                 Operation.montant,
@@ -226,15 +73,100 @@ class OperationModel extends Model
                 ->orWhereIn('Operation.id_compte_destination', $idsComptes)
             ->groupEnd()
             ->orderBy('Operation.date_operation', 'DESC')
-            ->limit($limite);
+            ->limit($limite)
+            ->get()
+            ->getResultArray();
 
-        $resultats = $builder->get()->getResultArray();
-
-        // On annote chaque ligne avec le sens (debit/credit) du point de vue de CE client
         foreach ($resultats as &$op) {
             $op['est_source'] = in_array($op['id_compte_source'], $idsComptes, true);
         }
 
         return $resultats;
+    }
+
+    /**
+     * Historique de toutes les operations touchant un compte precis (source OU
+     * destination), utilise cote operateur pour la fiche detail d'un compte.
+     */
+    public function getHistoriqueParCompte(int $idCompte, int $limite = 100): array
+    {
+        $db = \Config\Database::connect();
+
+        return $db->table('Operation')
+            ->select('
+                Operation.id_operation,
+                Operation.montant,
+                Operation.frais_appliques,
+                Operation.date_operation,
+                Operation.id_compte_source,
+                Operation.id_compte_destination,
+                TypeOperation.libelle AS type_libelle,
+                statut_operation.libelle AS statut_libelle,
+                ClientSource.numero_telephone AS numero_source,
+                ClientSource.nom AS nom_source,
+                ClientDestination.numero_telephone AS numero_destination,
+                ClientDestination.nom AS nom_destination
+            ')
+            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
+            ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
+            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
+            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
+            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination', 'left')
+            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client', 'left')
+            ->groupStart()
+                ->where('Operation.id_compte_source', $idCompte)
+                ->orWhere('Operation.id_compte_destination', $idCompte)
+            ->groupEnd()
+            ->orderBy('Operation.date_operation', 'DESC')
+            ->limit($limite)
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Montants a reverser entre operateurs : regroupe, par operateur source et
+     * operateur destination, le total des transferts REUSSIS et INTER-OPERATEURS
+     * sur une periode donnee. Utilise pour la page "Commissions inter-operateur".
+     *
+     * Chaque ligne retournee contient : nom_operateur_source, nom_operateur_destination,
+     * nombre_operations, montant_total (somme des montants transferes, hors frais),
+     * frais_total (somme des frais_appliques, correspondant a la commission percue).
+     */
+    public function getMontantsAEnvoyer(?string $dateDebut = null, ?string $dateFin = null): array
+    {
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('Operation')
+            ->select('
+                OperateurSource.nom AS nom_operateur_source,
+                OperateurDestination.nom AS nom_operateur_dest,
+                COUNT(Operation.id_operation) AS nombre_transferts,
+                SUM(Operation.montant) AS montant_total,
+                SUM(Operation.frais_appliques) AS frais_total
+            ')
+            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source')
+            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client')
+            ->join('Operateur AS OperateurSource', 'OperateurSource.id_operateur = ClientSource.id_operateur')
+            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination')
+            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client')
+            ->join('Operateur AS OperateurDestination', 'OperateurDestination.id_operateur = ClientDestination.id_operateur')
+            ->where('Operation.id_type_operation', self::TYPE_TRANSFERT)
+            ->where('Operation.id_statut', self::STATUT_REUSSIE)
+            ->where('ClientDestination.id_operateur != ClientSource.id_operateur', null, false);
+
+        if ($dateDebut) {
+            $builder->where('Operation.date_operation >=', $dateDebut . ' 00:00:00');
+        }
+
+        if ($dateFin) {
+            $builder->where('Operation.date_operation <=', $dateFin . ' 23:59:59');
+        }
+
+        return $builder
+            ->groupBy('OperateurSource.nom, OperateurDestination.nom')
+            ->orderBy('OperateurSource.nom')
+            ->orderBy('OperateurDestination.nom')
+            ->get()
+            ->getResultArray();
     }
 }
