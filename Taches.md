@@ -53,3 +53,6 @@
 - Transfert vers un autre opérateur(il n’y a pas de frais de retrait pour les autres opérateurs)
 - Envoi multiple vers plusieurs numéros avec répartition automatique du montant(même opérateur uniquement)
 - Consultation du détail des frais avant validation d'un transfert
+
+git tag -a v1.0 -m "Version 1.0"
+git push origin v1.0

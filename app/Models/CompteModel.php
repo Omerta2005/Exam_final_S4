@@ -46,9 +46,6 @@ class CompteModel extends Model
             ->update();
     }
 
-    /**
-     * Recherche + jointure Client, utilisee cote operateur (liste/recherche des comptes).
-     */
     public function getAllWithClient(?string $recherche = null, ?int $idOperateur = null): array
     {
         $builder = $this->select('Compte.id_compte, Compte.solde, Client.id_client, Client.nom, Client.numero_telephone, Operateur.nom AS nom_operateur')
