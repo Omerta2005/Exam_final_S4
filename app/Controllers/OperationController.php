@@ -348,6 +348,7 @@ class OperationController
                 'id_type_operation'     => OperationModel::TYPE_TRANSFERT,
                 'id_compte_source'      => $compteExpediteur['id_compte'],
                 'id_compte_destination' => $part['compte_destinataire']['id_compte'],
+                'id_operateur_destination' => $idOperateurClientDestinataire,
                 'montant'               => $part['montant_envoye'],
                 'frais_appliques'       => $part['frais_transfert'],
                 'id_statut'             => OperationModel::STATUT_REUSSIE,

@@ -51,8 +51,9 @@ class CompteModel extends Model
      */
     public function getAllWithClient(?string $recherche = null, ?int $idOperateur = null): array
     {
-        $builder = $this->select('Compte.id_compte, Compte.solde, Client.id_client, Client.nom, Client.numero_telephone')
-            ->join('Client', 'Client.id_client = Compte.id_client');
+        $builder = $this->select('Compte.id_compte, Compte.solde, Client.id_client, Client.nom, Client.numero_telephone, Operateur.nom AS nom_operateur')
+            ->join('Client', 'Client.id_client = Compte.id_client')
+            ->join('Operateur', 'Operateur.id_operateur = Client.id_operateur');
 
         if ($idOperateur !== null) {
             $builder->where('Client.id_operateur', $idOperateur);

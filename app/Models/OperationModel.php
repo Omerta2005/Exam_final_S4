@@ -14,6 +14,7 @@ class OperationModel extends Model
         'id_type_operation',
         'id_compte_source',
         'id_compte_destination',
+        'id_operateur_destination',
         'montant',
         'frais_appliques',
         'id_statut',
@@ -166,6 +167,48 @@ class OperationModel extends Model
             ->groupBy('OperateurSource.nom, OperateurDestination.nom')
             ->orderBy('OperateurSource.nom')
             ->orderBy('OperateurDestination.nom')
+            ->get()
+            ->getResultArray();
+    }
+
+    public function getOperationsPourGains(?string $dateDebut = null, ?string $dateFin = null): array
+    {
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('Operation')
+            ->select('
+                Operation.id_operation,
+                Operation.id_type_operation,
+                Operation.id_compte_source,
+                Operation.id_compte_destination,
+                OperateurSource.id_operateur AS id_operateur_source,
+                OperateurDestination.id_operateur AS id_operateur_destination,
+                TypeOperation.libelle AS type_operation,
+                Operation.montant,
+                Operation.frais_appliques,
+                Operation.date_operation
+            ')
+            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
+            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
+            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
+            ->join('Operateur AS OperateurSource', 'OperateurSource.id_operateur = ClientSource.id_operateur', 'left')
+            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination', 'left')
+            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client', 'left')
+            ->join('Operateur AS OperateurDestination', 'OperateurDestination.id_operateur = ClientDestination.id_operateur', 'left')
+            ->where('Operation.id_statut', self::STATUT_REUSSIE)
+            ->where('Operation.id_type_operation !=', self::TYPE_DEPOT);
+
+        if ($dateDebut) {
+            $builder->where('Operation.date_operation >=', $dateDebut . ' 00:00:00');
+        }
+
+        if ($dateFin) {
+            $builder->where('Operation.date_operation <=', $dateFin . ' 23:59:59');
+        }
+
+        return $builder
+            ->orderBy('Operation.date_operation', 'DESC')
+            ->orderBy('Operation.id_operation', 'DESC')
             ->get()
             ->getResultArray();
     }

@@ -144,3 +144,186 @@ in APPPATH/Controllers/OperationController.php on line 1.
 10 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
 11 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
 DEBUG - 2026-07-21 05:32:46 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:33:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:33:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:33:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:33:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:33:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:33:40 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 05:33:41 --> CodeIgniter\Exceptions\BadMethodCallException: Call to undefined method App\Models\OperationModel::getOperationsPourGains
+[Method: GET, Route: operateur/gains]
+in SYSTEMPATH/Model.php on line 761.
+ 1 APPPATH/Controllers/GainController.php(20): CodeIgniter\Model->__call()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:37:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:37:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 05:37:45 --> TypeError: App\Models\OperationModel::getOperationsPourGains(): Argument #1 ($idOperateur) must be of type int, null given, called in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/GainController.php on line 20
+[Method: GET, Route: operateur/gains]
+in APPPATH/Models/OperationModel.php on line 173.
+ 1 APPPATH/Controllers/GainController.php(20): App\Models\OperationModel->getOperationsPourGains()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+CRITICAL - 2026-07-21 05:39:07 --> TypeError: App\Models\OperationModel::getOperationsPourGains(): Argument #1 ($idOperateur) must be of type int, null given, called in /home/miaro/Documents/S4/Systeme d'information/Exam_final_S4/app/Controllers/GainController.php on line 20
+[Method: GET, Route: operateur/gains]
+in APPPATH/Models/OperationModel.php on line 173.
+ 1 APPPATH/Controllers/GainController.php(20): App\Models\OperationModel->getOperationsPourGains()
+ 2 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\GainController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:40:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 05:40:15 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+CRITICAL - 2026-07-21 05:40:18 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:40:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:40:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:42:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 05:42:30 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:42:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 05:42:40 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+CRITICAL - 2026-07-21 05:43:00 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:46:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:46:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-21 05:46:51 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+CRITICAL - 2026-07-21 05:46:53 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+CRITICAL - 2026-07-21 05:47:00 --> ErrorException: Undefined array key "nom_operateur"
+[Method: GET, Route: operateur/comptes]
+in APPPATH/Views/operateur/comptes/index.php on line 130.
+ 1 APPPATH/Views/operateur/comptes/index.php(130): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH/View/View.php(240): include('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/app/Views/operateur/comptes/index.php')
+ 3 SYSTEMPATH/View/View.php(243): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH/Common.php(1250): CodeIgniter\View\View->render()
+ 5 APPPATH/Controllers/CompteController.php(17): view()
+ 6 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\CompteController->index()
+ 7 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/miaro/Documents/S4/Systeme d\'information/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:47:28 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:33 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:47:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
