@@ -120,7 +120,7 @@
                 <div class="list-group-item client-item d-flex justify-content-between align-items-center flex-wrap gap-3 py-3 px-4">
                     <div class="d-flex align-items-center gap-3">
                         <div class="client-avatar">
-                            <i class="bi bi-person-fill"></i>
+                            <img src="<?= base_url('asset/call.svg') ?>" alt="Téléphone" width="20" height="20">
                         </div>
                         <div>
                             <div class="client-phone"><?= esc($compte['numero_telephone']) ?></div>

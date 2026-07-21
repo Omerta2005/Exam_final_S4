@@ -188,7 +188,7 @@
 									</div>
 								</div>
 
-								<div class="form-check mb-3">
+								<div id="inclure_frais-container" class="form-check mb-3">
 									<input
 										class="form-check-input"
 										type="checkbox"
@@ -250,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnAjouter           = document.getElementById('btn-ajouter-destinataire');
     const montantInput         = document.getElementById('montant_transfert');
     const checkbox             = document.getElementById('inclure_frais');
+	const formInclureFrais     = document.getElementById('inclure_frais-container');
 
     const resume               = document.getElementById('resume-transfert');
     const montantSaisi         = document.getElementById('montant-saisi');
@@ -321,6 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         detailDestinataires.innerHTML = data.details.map(d => {
             let alerte = '';
+			if (!d.meme_operateur) {
+				formInclureFrais.classList.add('d-none');
+			} else {
+				formInclureFrais.classList.remove('d-none');
+			}
             if (!d.operateur_valide) {
                 alerte = '<span class="text-danger">(numero/operateur inconnu)</span>';
             } else if (!d.meme_operateur && numeros.length > 1) {
