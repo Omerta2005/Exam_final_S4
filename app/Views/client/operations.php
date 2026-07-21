@@ -163,6 +163,11 @@
 									+ Ajouter un destinataire
 								</button>
 
+								<div id="alerte-multi-operateur" class="alert alert-warning py-2 small d-none">
+									Un transfert vers un autre operateur ne peut avoir qu'un seul destinataire.
+									Retirez les destinataires en trop, ou gardez un seul numero.
+								</div>
+
 								<div class="mb-3">
 									<label class="form-label fw-semibold">
 										Montant total a transferer (Ar)
@@ -216,7 +221,7 @@
 									<div id="detail-destinataires" class="small"></div>
 								</div>
 
-								<button type="submit" class="btn btn-primary btn-lg w-100 rounded-3">
+								<button type="submit" id="btn-confirmer-transfert" class="btn btn-primary btn-lg w-100 rounded-3">
 									Confirmer le transfert
 								</button>
 
@@ -239,7 +244,163 @@
 </div>
 
 <script>
-	// Ton JavaScript reste inchangé.
+document.addEventListener('DOMContentLoaded', () => {
+
+    const listeDestinataires   = document.getElementById('liste-destinataires');
+    const btnAjouter           = document.getElementById('btn-ajouter-destinataire');
+    const montantInput         = document.getElementById('montant_transfert');
+    const checkbox             = document.getElementById('inclure_frais');
+
+    const resume               = document.getElementById('resume-transfert');
+    const montantSaisi         = document.getElementById('montant-saisi');
+    const nbDestinatairesEl    = document.getElementById('nb-destinataires');
+    const detailDestinataires  = document.getElementById('detail-destinataires');
+
+    const alerteMultiOperateur = document.getElementById('alerte-multi-operateur');
+    const btnConfirmer         = document.getElementById('btn-confirmer-transfert');
+
+    let timer = null;
+
+    function getNumeros() {
+        return Array.from(document.querySelectorAll('input[name="numero_destinataire[]"]'))
+            .map(input => input.value.trim())
+            .filter(v => v.length === 10);
+    }
+
+    function ajouterLigne() {
+        const ligne = listeDestinataires.querySelector('.ligne-destinataire').cloneNode(true);
+        ligne.querySelector('input').value = '';
+        listeDestinataires.appendChild(ligne);
+        attacherRetrait(ligne);
+        calculer();
+    }
+
+    function attacherRetrait(ligne) {
+        const btn = ligne.querySelector('.btn-retirer-destinataire');
+        btn.addEventListener('click', () => {
+            if (listeDestinataires.querySelectorAll('.ligne-destinataire').length > 1) {
+                ligne.remove();
+                calculer();
+            }
+        });
+    }
+
+    document.querySelectorAll('.ligne-destinataire').forEach(attacherRetrait);
+    btnAjouter.addEventListener('click', ajouterLigne);
+
+    async function calculer() {
+
+        const montantTotal = parseFloat(montantInput.value);
+        const numeros = getNumeros();
+
+        if (isNaN(montantTotal) || montantTotal <= 0 || numeros.length === 0) {
+            resume.classList.add('d-none');
+            alerteMultiOperateur.classList.add('d-none');
+            btnConfirmer.disabled = false;
+            return;
+        }
+
+        const montantParPersonne = montantTotal / numeros.length;
+
+        const response = await fetch("<?= base_url('client/calcul-frais') ?>", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({
+                montant: montantParPersonne,
+                numeros: JSON.stringify(numeros),
+                inclure_frais: checkbox.checked ? 1 : 0
+            })
+        });
+
+        const data = await response.json();
+
+        montantSaisi.textContent = montantTotal.toLocaleString();
+        nbDestinatairesEl.textContent = numeros.length;
+
+        detailDestinataires.innerHTML = data.details.map(d => {
+            let alerte = '';
+            if (!d.operateur_valide) {
+                alerte = '<span class="text-danger">(numero/operateur inconnu)</span>';
+            } else if (!d.meme_operateur && numeros.length > 1) {
+                alerte = '<span class="text-danger">(autre operateur — non autorise en multi)</span>';
+            }
+
+            let lignesFrais = '';
+
+            if (d.frais_retrait > 0) {
+                lignesFrais += `<div class="text-muted">+ ${d.frais_retrait.toLocaleString()} Ar de frais de retrait couverts</div>`;
+            }
+
+            if (d.frais_transfert > 0) {
+                lignesFrais += `<div class="text-muted">Frais de transfert (a votre charge) : ${d.frais_transfert.toLocaleString()} Ar</div>`;
+            }
+
+            if (d.commission_inter_operateur > 0) {
+                lignesFrais += `<div class="text-warning">dont commission inter-operateur : ${d.commission_inter_operateur.toLocaleString()} Ar</div>`;
+            }
+
+            return `
+                <div class="border-top pt-2 mt-2">
+                    <div class="d-flex justify-content-between">
+                        <span>${d.numero} ${alerte}</span>
+                        <span>${d.montant_envoye.toLocaleString()} Ar recus</span>
+                    </div>
+                    ${lignesFrais}
+                    <div class="d-flex justify-content-between fw-semibold">
+                        <span>Total debite pour ce destinataire</span>
+                        <span>${d.total_a_debiter.toLocaleString()} Ar</span>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        const totalGeneralADebiter = data.details.reduce((acc, d) => acc + d.total_a_debiter, 0);
+        const totalCommission = data.details.reduce((acc, d) => acc + d.commission_inter_operateur, 0);
+
+        let ligneTotal = `
+            <div class="border-top pt-2 mt-2 d-flex justify-content-between fw-bold">
+                <span>Total a debiter de votre compte</span>
+                <span>${totalGeneralADebiter.toLocaleString()} Ar</span>
+            </div>
+        `;
+
+        if (totalCommission > 0) {
+            ligneTotal += `
+                <div class="d-flex justify-content-between text-warning small">
+                    <span>dont commission inter-operateur totale</span>
+                    <span>${totalCommission.toLocaleString()} Ar</span>
+                </div>
+            `;
+        }
+
+        detailDestinataires.innerHTML += ligneTotal;
+
+        // Blocage visuel : plusieurs destinataires dont au moins un sur un autre operateur
+        const bloquant = numeros.length > 1 && data.details.some(d => d.operateur_valide && !d.meme_operateur);
+
+        alerteMultiOperateur.classList.toggle('d-none', !bloquant);
+        btnConfirmer.disabled = bloquant;
+
+        resume.classList.remove('d-none');
+    }
+
+    montantInput.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(calculer, 500);
+    });
+
+    checkbox.addEventListener('change', calculer);
+
+    listeDestinataires.addEventListener('input', (e) => {
+        if (e.target.matches('input[name="numero_destinataire[]"]')) {
+            clearTimeout(timer);
+            timer = setTimeout(calculer, 500);
+        }
+    });
+
+});
 </script>
 
 <?= $this->endSection() ?>

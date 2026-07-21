@@ -26,7 +26,7 @@
                                     justify-content-center"
                              style="width:60px;height:60px;">
                             <span class="fs-2">
-                                ✓                            *
+                                ✓                            
                             </span>
                         </div>
                         <h3 class="mt-3 fw-bold">

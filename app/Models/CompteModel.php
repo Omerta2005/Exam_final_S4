@@ -10,41 +10,69 @@ class CompteModel extends Model
     protected $primaryKey       = 'id_compte';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
-    protected $useSoftDeletes   = false;
-    protected $protectFields    = true;
-    protected $allowedFields    = [
-        'id_client',
-        'solde',
-        'date_creation'
-    ];
+    protected $allowedFields    = ['id_client', 'solde'];
 
-    public function getAllWithClient(?string $recherche = null, ?int $idOperateur = null)
+    protected $useTimestamps = false;
+
+    public function findByIdClient(int $idClient): ?array
     {
-        $builder = $this->select('Compte.id_compte, Compte.solde,
-                                   Client.id_client, Client.numero_telephone, Client.nom,
-                                   Operateur.nom as nom_operateur')
-                         ->join('Client', 'Client.id_client = Compte.id_client')
-                         ->join('Operateur', 'Operateur.id_operateur = Client.id_operateur');
+        return $this->where('id_client', $idClient)->first();
+    }
+
+    /**
+     * Compte + infos du client proprietaire (nom, numero), utilise pour l'affichage.
+     */
+    public function getDetailAvecClient(int $idClient): ?array
+    {
+        return $this->select('Client.numero_telephone, Client.nom, Compte.id_compte, Compte.solde')
+            ->join('Client', 'Client.id_client = Compte.id_client')
+            ->where('Compte.id_client', $idClient)
+            ->first();
+    }
+
+    public function crediter(int $idCompte, float $montant): void
+    {
+        $this->db->table('Compte')
+            ->where('id_compte', $idCompte)
+            ->set('solde', 'solde + ' . $montant, false)
+            ->update();
+    }
+
+    public function debiter(int $idCompte, float $montant): void
+    {
+        $this->db->table('Compte')
+            ->where('id_compte', $idCompte)
+            ->set('solde', 'solde - ' . $montant, false)
+            ->update();
+    }
+
+    /**
+     * Recherche + jointure Client, utilisee cote operateur (liste/recherche des comptes).
+     */
+    public function getAllWithClient(?string $recherche = null, ?int $idOperateur = null): array
+    {
+        $builder = $this->select('Compte.id_compte, Compte.solde, Client.id_client, Client.nom, Client.numero_telephone')
+            ->join('Client', 'Client.id_client = Compte.id_client');
 
         if ($idOperateur !== null) {
             $builder->where('Client.id_operateur', $idOperateur);
         }
 
         if ($recherche) {
-            $builder->like('Client.numero_telephone', $recherche);
+            $builder->groupStart()
+                ->like('Client.nom', $recherche)
+                ->orLike('Client.numero_telephone', $recherche)
+                ->groupEnd();
         }
 
-        return $builder->orderBy('Client.numero_telephone')->findAll();
+        return $builder->orderBy('Client.nom')->findAll();
     }
 
-    public function getDetailCompte(int $idCompte, ?int $idOperateur = null)
+    public function getDetailCompte(int $idCompte, ?int $idOperateur = null): ?array
     {
-        $builder = $this->select('Compte.id_compte, Compte.solde,
-                               Client.id_client, Client.numero_telephone, Client.nom,
-                               Operateur.nom as nom_operateur')
-                     ->join('Client', 'Client.id_client = Compte.id_client')
-                     ->join('Operateur', 'Operateur.id_operateur = Client.id_operateur')
-                     ->where('Compte.id_compte', $idCompte);
+        $builder = $this->select('Compte.id_compte, Compte.solde, Client.id_client, Client.nom, Client.numero_telephone, Client.id_operateur')
+            ->join('Client', 'Client.id_client = Compte.id_client')
+            ->where('Compte.id_compte', $idCompte);
 
         if ($idOperateur !== null) {
             $builder->where('Client.id_operateur', $idOperateur);
@@ -52,34 +80,4 @@ class CompteModel extends Model
 
         return $builder->first();
     }
-
-    protected bool $allowEmptyInserts = false;
-    protected bool $updateOnlyChanged = true;
-
-    protected array $casts = [];
-    protected array $castHandlers = [];
-
-    // Dates
-    protected $useTimestamps = false;
-    protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
-
-    // Validation
-    protected $validationRules      = [];
-    protected $validationMessages   = [];
-    protected $skipValidation       = false;
-    protected $cleanValidationRules = true;
-
-    // Callbacks
-    protected $allowCallbacks = true;
-    protected $beforeInsert   = [];
-    protected $afterInsert    = [];
-    protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
-    protected $beforeFind     = [];
-    protected $afterFind      = [];
-    protected $beforeDelete   = [];
-    protected $afterDelete    = [];
 }
