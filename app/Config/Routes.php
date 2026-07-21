@@ -17,6 +17,8 @@ $routes->group('client', function($routes) {
     $routes->get('historique', 'ClientController::historique');
     $routes->post('calcul-frais', 'ClientController::calculFrais');
     $routes->get('logout', 'ClientController::logout');
+    $routes->get('epargne','EpargneController::index');
+    $routes->post('setEpargne','EpargneController::insert');
 });
 $routes->get('/bareme-frais', 'BaremeFraisController::index');
 $routes->get('operateur/login', 'OperateurAuthController::index');

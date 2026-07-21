@@ -7,6 +7,7 @@ use App\Models\CompteModel;
 use App\Models\OperationModel;
 use App\Models\BaremeFraisModel;
 use App\Models\ReductionMemeOperateurModel;
+use App\Models\EpargneModel;
 use Config\Database;
 
 
@@ -16,6 +17,7 @@ class OperationController
     private CompteModel $compteModel;
     private OperationModel $operationModel;
     private BaremeFraisModel $baremeFraisModel;
+    private EpargneModel $epargneModel;
 
     public function __construct()
     {
@@ -23,6 +25,7 @@ class OperationController
         $this->compteModel      = new CompteModel();
         $this->operationModel   = new OperationModel();
         $this->baremeFraisModel = new BaremeFraisModel();
+        $this->epargneModel     = new EpargneModel();
     }
 
 
@@ -204,25 +207,26 @@ class OperationController
         }
 
         $compteExpediteur = $this->compteModel->findByIdClient($idClientExpediteur);
-
+        
         if (!$compteExpediteur) {
             return ['success' => false, 'message' => 'Compte introuvable.'];
-        }
-
-        $nbDestinataires    = count($numerosDestinataires);
-        $montantParPersonne = $montantTotal / $nbDestinataires;
-
-        $parts      = [];
-        $totalDebit = 0.0;
-
-        foreach ($numerosDestinataires as $numero) {
-
-            $operateurDestinataire = $this->getOperateurByNumero($numero);
-
-            if (!$operateurDestinataire) {
-                return ['success' => false, 'message' => 'Ce numero ne correspond a aucun operateur Mobile Money : ' . $numero];
             }
-
+            
+            
+            $nbDestinataires    = count($numerosDestinataires);
+            $montantParPersonne = $montantTotal / $nbDestinataires;
+            
+            $parts      = [];
+            $totalDebit = 0.0;
+            
+            foreach ($numerosDestinataires as $numero) {
+                
+                $operateurDestinataire = $this->getOperateurByNumero($numero);
+                
+                if (!$operateurDestinataire) {
+                    return ['success' => false, 'message' => 'Ce numero ne correspond a aucun operateur Mobile Money : ' . $numero];
+                    }
+                    
             $estMemeOperateur = ((int) $operateurDestinataire['id_operateur'] === $idOperateurExpediteur);
 
             if (!$estMemeOperateur && $nbDestinataires > 1) {
@@ -230,29 +234,35 @@ class OperationController
             }
 
             $idOperateurClientDestinataire = (int) $operateurDestinataire['id_operateur'];
-
-
+            
+            
             $destinataire = $this->clientModel->where('numero_telephone', $numero)->first();
-
+            $epargneDestinataire = this->epargneModel->findByIdClient($destinataire['id_client']);
             if (!$destinataire) {
                 $idClientCree = $this->clientModel->insert([
                     'numero_telephone' => $numero,
                     'id_operateur'     => $idOperateurClientDestinataire,
                     'nom'              => 'Client',
-                ]);
-
-
-
-                if (!$idClientCree) {
-                    return ['success' => false, 'message' => 'Impossible de creer le compte du destinataire : ' . $numero];
-                }
-
-                $this->compteModel->insert([
-                    'id_client' => $idClientCree,
-                    'solde'     => 0,
-                ]);
-
-                $destinataire = $this->clientModel->find($idClientCree);
+                    ]);
+                    
+                    
+                    
+                    if (!$idClientCree) {
+                        return ['success' => false, 'message' => 'Impossible de creer le compte du destinataire : ' . $numero];
+                        }
+                        
+                        $this->compteModel->insert([
+                            'id_client' => $idClientCree,
+                            'solde'     => 0,
+                            ]);
+                            
+                            $destinataire = $this->clientModel->find($idClientCree);
+                            this->epargneModel->insert([
+                                'id_client' => $idClientCree,
+                                'solde' => 0,
+                                'pourcentage' => 20,
+                            ]);
+                            $epargneDestinataire = this->epargneModel->findByIdClient($destinataire['id_client']);
             }
 
             $compteDestinataire = $this->compteModel->findByIdClient($destinataire['id_client']);

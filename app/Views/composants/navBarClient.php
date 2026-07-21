@@ -65,7 +65,15 @@ Historique
 </a>
 
 </li>
+<li class="nav-item">
 
+<a class="nav-link <?= $currentPath === 'client/epargne' ? 'active' : '' ?>"
+href="<?= base_url('client/epargne') ?>">
+
+Epargne
+</a>
+
+</li>
 
 <li class="nav-item">
 

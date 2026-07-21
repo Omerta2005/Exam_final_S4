@@ -18,5 +18,7 @@ class CompteController extends BaseController
             'comptes'   => $model->getAllWithClient($recherche),
             'recherche' => $recherche,
         ]);
+
     }
+
 }

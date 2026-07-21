@@ -60,3 +60,9 @@ Config Base
 
 git tag -a v1.0 -m "Version 1.0"
 git push origin v1.0
+
+
+Alea 2 
+epargne , 
+manana page miteny en % ny epargne
+rehefa vola tonga de ?% tonga any lasa epargne (transfert iany)

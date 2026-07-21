@@ -51,6 +51,14 @@ CREATE TABLE statut_operation (
     libelle     TEXT NOT NULL UNIQUE
 );
 
+CREATE TABLE epargne(
+    id_epargne INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_client INTEGER NOT NULL,
+    pourcentage REAL,
+    solde   REAL NOT NULL DEFAULT 0,
+    FOREIGN KEY (id_client) REFERENCES client(id_client)
+);
+
 CREATE TABLE Operation (
     id_operation          INTEGER PRIMARY KEY AUTOINCREMENT,
     id_type_operation     INTEGER NOT NULL,

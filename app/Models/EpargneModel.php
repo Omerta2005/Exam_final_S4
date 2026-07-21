@@ -4,18 +4,18 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ClientModel extends Model
+class EpargneModel extends Model
 {
-    protected $table            = 'Client';
-    protected $primaryKey       = 'id_client';
+    protected $table            = 'epargne';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'numero_telephone',
-        'nom',
-        'id_operateur'
+        'id_client',
+        'solde',
+        'pourcentage'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -47,7 +47,6 @@ class ClientModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
 
     public function findByIdClient(int $idClient): ?array
     {
