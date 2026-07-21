@@ -6,6 +6,7 @@ use App\Models\ClientModel;
 use App\Models\CompteModel;
 use App\Models\OperationModel;
 use App\Models\BaremeFraisModel;
+use App\Models\ReductionMemeOperateurModel;
 use Config\Database;
 
 
@@ -151,6 +152,8 @@ class OperationController
                     $memeOperateur ? null : (int) $operateur['id_operateur']
                 );
 
+                
+
                 $commissionInterOp = $memeOperateur ? 0.0 : max(0.0, $fraisTransfertTotal - $fraisBase);
             }
 
@@ -238,6 +241,8 @@ class OperationController
                     'nom'              => 'Client',
                 ]);
 
+
+
                 if (!$idClientCree) {
                     return ['success' => false, 'message' => 'Impossible de creer le compte du destinataire : ' . $numero];
                 }
@@ -259,6 +264,7 @@ class OperationController
             $fraisRetraitCouvert = $inclureFrais
                 ? $this->baremeFraisModel->calculerFrais($idOperateurClientDestinataire, OperationModel::TYPE_RETRAIT, $montantParPersonne)
                 : 0.0;
+
 
             $montantEnvoye = $montantParPersonne + $fraisRetraitCouvert;
 
@@ -291,7 +297,13 @@ class OperationController
                 'est_meme_operateur'  => $estMemeOperateur,
             ];
 
-            $totalDebit += $montantEnvoye + $fraisTransfert;
+            $model = new ReductionMemeOperateurModel;
+
+            $pourcentage = $model->getPourcentage();
+
+            $fraisTransfertFinal = $fraisTransfert * ((float) $pourcentage / 100);
+
+            $totalDebit += $montantEnvoye + $fraisTransfertFinal;
         }
 
         if ($compteExpediteur['solde'] < $totalDebit) {

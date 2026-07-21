@@ -129,6 +129,16 @@ CREATE TABLE CommissionInterOperateur (
     FOREIGN KEY (id_operateur) REFERENCES Operateur(id_operateur)
 );
 
+CREATE TABLE ReductionMemeOperateur (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_expediteur INTEGER NOT NULL,
+    pourcentage REAL NOT NULL,
+    FOREIGN KEY (id_expediteur) REFERENCES Operateur(id_operateur)
+);
+
+INSERT INTO ReductionMemeOperateur (id_expediteur, pourcentage) VALUES 
+(2, 10); 
+
 INSERT INTO CommissionInterOperateur (id_operateur, pourcentage) VALUES
 (1, 0.02),  
 (2, 0.015),  
