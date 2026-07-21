@@ -105,9 +105,6 @@
             <h2 class="mb-1"><i class="bi bi-send-fill me-2"></i>Situation des montants à envoyer à chaque opérateur</h2>
             <div class="subtitle">Vue basée sur les transferts inter-opérateurs réalisés par <?= esc($nomOperateur) ?></div>
         </div>
-        <a href="<?= base_url('operateur/commissions') ?>" class="btn btn-light btn-retour">
-            <i class="bi bi-arrow-left me-1"></i>Retour commissions
-        </a>
     </div>
 
     <div class="card filter-card shadow-sm mb-4">

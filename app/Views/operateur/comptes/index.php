@@ -100,7 +100,7 @@
         <div>
             <h2 class="mb-1"><i class="bi bi-people-fill me-2"></i>Comptes clients</h2>
             <div class="subtitle">
-                <?= count($comptes) ?> client<?= count($comptes) > 1 ? 's' : '' ?> enregistré<?= count($comptes) > 1 ? 's' : '' ?>
+                <?= count($comptes) ?> client<?= count($comptes) > 1 ? 's' : '' ?> enregistré<?= count($comptes) > 1 ? 's' : '' ?> sur tous les opérateurs
             </div>
         </div>
     </div>

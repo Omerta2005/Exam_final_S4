@@ -1,93 +1,28 @@
-<?php $title = 'Configuration commission Yas'; ?>
+<?php $title = 'Configuration de la commission'; ?>
 <?php $this->extend('layout/layoutOperateur'); ?>
 <?php $this->section('content'); ?>
 
 <div class="container py-5">
-    <style>
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf5 100%);
-            min-height: 100vh;
-        }
-        .form-card {
-            max-width: 780px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
-        .form-card-header {
-            background: linear-gradient(135deg, #2c7be5 0%, #1a56b0 100%);
-            color: white;
-            padding: 1.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .form-card-header h4 { font-weight: 700; margin-bottom: 0.2rem; }
-        .form-card-header .subtitle { opacity: 0.85; font-size: 0.9rem; max-width: 480px; }
-        .btn-voir-liste {
-            border-radius: 50px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .form-card-body { padding: 2rem; }
 
-        .form-label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #344054;
-        }
-        .form-control {
-            border-radius: 10px;
-            padding: 0.6rem 0.9rem;
-            border: 1px solid #d9dfe8;
-        }
-        .form-control:focus {
-            border-color: #2c7be5;
-            box-shadow: 0 0 0 0.2rem rgba(44,123,229,0.15);
-        }
-        .form-control:disabled {
-            background: #f8fafc;
-            color: #667085;
-        }
-
-        .pourcentage-preview {
-            border-radius: 12px;
-            background: linear-gradient(135deg, #eef4fd, #f6f9ff);
-            border: 1px solid #dbe7fa;
-            padding: 1rem 1.25rem;
-            font-size: 0.9rem;
-            color: #1a56b0;
-        }
-
-        .btn-submit {
-            border-radius: 50px;
-            padding: 0.7rem 1.6rem;
-            font-weight: 600;
-            box-shadow: 0 4px 12px rgba(44,123,229,0.25);
-        }
-    </style>
-
-    <div class="form-card">
-
-        <div class="form-card-header">
-            <div>
-                <h4><i class="bi bi-percent me-2"></i>Configuration de la commission Yas</h4>
-                <div class="subtitle">La commission s'applique en plus des frais fixes sur les transferts vers un autre opérateur.</div>
+    <div class="card border-0 shadow-lg mb-4">
+        <div class="card-header bg-primary text-white p-4">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                <div>
+                    <h2 class="mb-1 fw-bold">Configuration de la commission Yas</h2>
+                    <div class="opacity-75">
+                        S'applique en plus des frais fixes lorsqu'un client Yas transfère vers un autre opérateur (Orange, Airtel, ...).
+                    </div>
+                </div>
+                <a href="<?= base_url('operateur/commissions') ?>" class="btn btn-light rounded-pill px-3">
+                    Voir la liste des montants
+                </a>
             </div>
-            <a href="<?= base_url('operateur/commissions') ?>" class="btn btn-light btn-voir-liste">
-                <i class="bi bi-list-ul me-1"></i>Voir la liste des montants
-            </a>
         </div>
 
-        <div class="form-card-body">
+        <div class="card-body p-4">
 
             <?php if (session()->getFlashdata('errors')): ?>
-                <div class="alert alert-danger d-flex align-items-start gap-2 rounded-3 mb-4">
-                    <i class="bi bi-exclamation-triangle-fill mt-1"></i>
+                <div class="alert alert-danger">
                     <ul class="mb-0">
                         <?php foreach (session()->getFlashdata('errors') as $error): ?>
                             <li><?= esc($error) ?></li>
@@ -97,18 +32,40 @@
             <?php endif; ?>
 
             <?php if (session()->getFlashdata('success')): ?>
-                <div class="alert alert-success d-flex align-items-start gap-2 rounded-3 mb-4">
-                    <i class="bi bi-check-circle-fill mt-1"></i>
-                    <div><?= esc(session()->getFlashdata('success')) ?></div>
+                <div class="alert alert-success">
+                    <?= esc(session()->getFlashdata('success')) ?>
                 </div>
             <?php endif; ?>
 
-            <form action="/operateur/commissions/save" method="post">
-                <div class="row g-3 align-items-end mb-3">
+            <div class="alert alert-light border mb-4">
+                Cette commission est prélevée en plus des frais fixes pour chaque transfert que Yas envoie vers un autre opérateur.
+            </div>
+
+            <?php
+            // On n'affiche/configure que la commission de Yas : c'est toujours
+            // l'operateur de l'expediteur qui est utilise dans le calcul des frais,
+            // et l'expediteur est toujours un client Yas dans cet espace operateur.
+            $operateurYas = null;
+            foreach ($operateurs as $op) {
+                if ($op['nom'] === 'Yas') {
+                    $operateurYas = $op;
+                    break;
+                }
+            }
+            ?>
+
+            <?php if (! $operateurYas): ?>
+                <div class="alert alert-light border text-center mb-0">
+                    Opérateur Yas introuvable.
+                </div>
+            <?php else: ?>
+
+                <form action="/operateur/commissions/save" method="post" class="row g-3 align-items-end">
+                    <input type="hidden" name="id_operateur" value="<?= esc($operateurYas['id_operateur']) ?>">
+
                     <div class="col-md-6">
                         <label class="form-label">Opérateur</label>
-                        <input type="text" class="form-control" value="<?= esc($operateur['nom']) ?>" disabled>
-                        <input type="hidden" name="id_operateur" value="<?= esc($operateur['id_operateur']) ?>">
+                        <input type="text" class="form-control" value="<?= esc($operateurYas['nom']) ?>" disabled>
                     </div>
 
                     <div class="col-md-4">
@@ -120,24 +77,19 @@
                                    max="100"
                                    class="form-control"
                                    name="pourcentage"
-                                   value="<?= esc($operateur['pourcentage'] * 100) ?>"
+                                   value="<?= esc($operateurYas['pourcentage'] * 100) ?>"
                                    required>
                             <span class="input-group-text">%</span>
                         </div>
                     </div>
 
                     <div class="col-md-2 d-grid">
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            <i class="bi bi-check2 me-1"></i>Enregistrer
-                        </button>
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
-                </div>
+                </form>
 
-                <div class="pourcentage-preview d-flex align-items-center gap-2">
-                    <i class="bi bi-info-circle-fill"></i>
-                    <span>Cette commission sera prélevée en plus des frais fixes pour chaque transfert effectué vers un autre opérateur.</span>
-                </div>
-            </form>
+            <?php endif; ?>
+
         </div>
     </div>
 </div>

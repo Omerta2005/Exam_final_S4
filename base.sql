@@ -56,6 +56,7 @@ CREATE TABLE Operation (
     id_type_operation     INTEGER NOT NULL,
     id_compte_source      INTEGER,
     id_compte_destination INTEGER,
+    id_operateur_destination INTEGER,
     montant               REAL NOT NULL,
     frais_appliques       REAL NOT NULL DEFAULT 0,
     date_operation        TEXT NOT NULL DEFAULT (datetime('now')),
@@ -63,6 +64,7 @@ CREATE TABLE Operation (
     FOREIGN KEY (id_type_operation) REFERENCES TypeOperation(id_type_operation),
     FOREIGN KEY (id_compte_source) REFERENCES Compte(id_compte),
     FOREIGN KEY (id_compte_destination) REFERENCES Compte(id_compte),
+    FOREIGN KEY (id_operateur_destination) REFERENCES Operateur(id_operateur),
     FOREIGN KEY (id_statut) REFERENCES statut_operation(id_statut)
 );
 
@@ -172,9 +174,7 @@ JOIN statut_operation ON statut_operation.id_statut = Operation.id_statut
 JOIN Compte AS CompteSource ON CompteSource.id_compte = Operation.id_compte_source
 JOIN Client AS ClientSource ON ClientSource.id_client = CompteSource.id_client
 JOIN Operateur AS OperateurSource ON OperateurSource.id_operateur = ClientSource.id_operateur
-JOIN Compte AS CompteDest ON CompteDest.id_compte = Operation.id_compte_destination
-JOIN Client AS ClientDest ON ClientDest.id_client = CompteDest.id_client
-JOIN Operateur AS OperateurDest ON OperateurDest.id_operateur = ClientDest.id_operateur
+JOIN Operateur AS OperateurDest ON OperateurDest.id_operateur = Operation.id_operateur_destination
 WHERE statut_operation.libelle = 'reussie'
   AND TypeOperation.libelle = 'transfert'
   AND OperateurSource.id_operateur != OperateurDest.id_operateur;

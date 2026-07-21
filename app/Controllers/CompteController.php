@@ -8,8 +8,6 @@ use App\Models\OperationModel;
 
 class CompteController extends BaseController
 {
-    private const OPERATEUR_YAS_ID = 2;
-
     public function index()
     {
         $recherche = $this->request->getGet('recherche');
@@ -17,7 +15,7 @@ class CompteController extends BaseController
         $model = new CompteModel();
 
         return view('operateur/comptes/index', [
-            'comptes'   => $model->getAllWithClient($recherche, self::OPERATEUR_YAS_ID),
+            'comptes'   => $model->getAllWithClient($recherche),
             'recherche' => $recherche,
         ]);
     }
@@ -26,7 +24,7 @@ class CompteController extends BaseController
     {
         $compteModel = new CompteModel();
         $operationModel = new OperationModel();
-        $compte = $compteModel->getDetailCompte($idCompte, self::OPERATEUR_YAS_ID);
+        $compte = $compteModel->getDetailCompte($idCompte);
 
         if (! $compte) {
             return redirect()->to('/operateur/comptes')->with('errors', ['Compte introuvable.']);
@@ -37,7 +35,7 @@ class CompteController extends BaseController
             'historique' => $operationModel->getHistoriqueParCompte($idCompte),
         ]);
     }
-        public function getCompteByIdClient(int $id_client)
+    public function getCompteByIdClient(int $id_client)
     {
         $db = \Config\Database::connect();
 
