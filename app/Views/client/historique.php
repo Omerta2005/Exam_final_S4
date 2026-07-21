@@ -7,10 +7,18 @@
 		<div class="col-lg-9">
 			<div class="card shadow-lg border-0 rounded-4">
 				<div class="card-body p-4 p-md-5">
+				<div class="text-center mb-4">
+					<div class="d-inline-flex align-items-center gap-3">
+						<img src="<?= base_url('asset/history.svg') ?>"
+							alt="Téléphone"
+							width="36"
+							height="36">
 
-					<h3 class="fw-bold text-center mb-4">
-						Historique des operations
-					</h3>
+						<h3 class="fw-bold mb-0">
+							Historique des opérations
+						</h3>
+					</div>
+				</div>
 
 					<?php if (empty($operations)): ?>
 

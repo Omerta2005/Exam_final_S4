@@ -322,8 +322,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         detailDestinataires.innerHTML = data.details.map(d => {
             let alerte = '';
-			if(!d.meme_operateur){
+			if (!d.meme_operateur) {
 				formInclureFrais.classList.add('d-none');
+			} else {
+				formInclureFrais.classList.remove('d-none');
 			}
             if (!d.operateur_valide) {
                 alerte = '<span class="text-danger">(numero/operateur inconnu)</span>';

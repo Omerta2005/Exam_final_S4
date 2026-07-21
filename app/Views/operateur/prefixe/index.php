@@ -118,7 +118,7 @@
                             <div class="d-flex justify-content-between align-items-start mb-3">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="prefix-icon">
-                                        <i class="bi bi-telephone-fill"></i>
+                                        <img src="<?= base_url('asset/call.svg') ?>" alt="Téléphone" width="20" height="20">
                                     </div>
                                     <div>
                                         <div class="prefix-code"><?= esc($prefixe['code']) ?></div>
