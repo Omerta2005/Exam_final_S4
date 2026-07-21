@@ -327,3 +327,97 @@ DEBUG - 2026-07-21 05:47:45 --> Session: Class initialized using 'CodeIgniter\Se
 DEBUG - 2026-07-21 05:47:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-21 05:47:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 DEBUG - 2026-07-21 05:47:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:50:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:51:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:51:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:51:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:51:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:22 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:26 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:52:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:53:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-21 05:53:10 --> table Operation has no column named id_operateur_destination
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/OperationController.php(347): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/ClientController.php(166): App\Controllers\OperationController->effectuerTransfert()
+10 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientController->transfert()
+11 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+ERROR - 2026-07-21 05:53:10 --> table Operation has no column named id_operateur_destination
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/OperationController.php(347): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/ClientController.php(166): App\Controllers\OperationController->effectuerTransfert()
+10 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientController->transfert()
+11 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:53:10 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:53:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:53:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:53:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:54:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-07-21 05:54:11 --> table Operation has no column named id_operateur_destination
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(910): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(827): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Model.php(355): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH/BaseModel.php(899): CodeIgniter\Model->doInsert()
+ 7 SYSTEMPATH/Model.php(668): CodeIgniter\BaseModel->insert()
+ 8 APPPATH/Controllers/OperationController.php(347): CodeIgniter\Model->insert()
+ 9 APPPATH/Controllers/ClientController.php(166): App\Controllers\OperationController->effectuerTransfert()
+10 SYSTEMPATH/CodeIgniter.php(951): App\Controllers\ClientController->transfert()
+11 SYSTEMPATH/CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(59): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH/rewrite.php(44): require_once('/home/omerta/Projet-SI/Exam_final_S4/public/index.php')
+DEBUG - 2026-07-21 05:54:11 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 05:54:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:02:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:02:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:02:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:02:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:02:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:03:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:03:07 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:03:08 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:03:09 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-21 06:03:43 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

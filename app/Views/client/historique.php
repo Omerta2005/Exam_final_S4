@@ -26,7 +26,7 @@
 									<tr>
 										<th>Date</th>
 										<th>Type</th>
-										<th>Contrepartie</th>
+										<th>Vers</th>
 										<th class="text-end">Montant</th>
 										<th class="text-end">Frais</th>
 										<th>Statut</th>

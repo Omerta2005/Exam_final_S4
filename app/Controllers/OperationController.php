@@ -8,12 +8,7 @@ use App\Models\OperationModel;
 use App\Models\BaremeFraisModel;
 use Config\Database;
 
-/**
- * Regroupe toute la logique metier des operations (retrait, depot, transfert).
- * Chaque methode retourne un tableau ['success' => bool, 'message' => string, ...].
- * Le controller se contente d'appeler ces methodes et de traduire le resultat
- * en redirect ou en reponse JSON : aucune logique metier ne doit rester dans lui.
- */
+
 class OperationController
 {
     private ClientModel $clientModel;
@@ -29,10 +24,7 @@ class OperationController
         $this->baremeFraisModel = new BaremeFraisModel();
     }
 
-    /**
-     * Effectue un retrait. L'operation est annulee (et loggee) si aucun bareme
-     * n'est defini pour l'operateur/montant, ou si le solde est insuffisant.
-     */
+
     public function effectuerRetrait(int $idClient, int $idOperateur, float $montant): array
     {
         if ($montant <= 0) {
@@ -89,10 +81,7 @@ class OperationController
         ];
     }
 
-    /**
-     * Effectue un depot. Contrairement au retrait/transfert, l'absence de bareme
-     * n'annule pas l'operation : les frais sont simplement 0.
-     */
+
     public function effectuerDepot(int $idClient, int $idOperateur, float $montant): array
     {
         if ($montant <= 0) {
@@ -130,10 +119,7 @@ class OperationController
         return ['success' => true, 'message' => 'Depot de ' . number_format($montant, 0, ',', ' ') . ' Ar effectue.'];
     }
 
-    /**
-     * Calcule un apercu (sans rien ecrire en base) de ce que chaque destinataire
-     * recevrait pour un montant/part donne. Utilise pour le resume AJAX cote vue.
-     */
+
     public function calculerApercuTransfert(array $numeros, float $montantParPersonne, bool $inclureFrais, int $idOperateurExpediteur): array
     {
         $details = [];
@@ -150,8 +136,7 @@ class OperationController
 
             $montantEnvoye = $montantParPersonne + $fraisRetrait;
 
-            // Frais de transfert (+ commission inter-operateur eventuelle) a la charge
-            // de l'expediteur, calcules seulement si l'operateur du destinataire est connu.
+
             $fraisTransfertTotal   = 0.0;
             $commissionInterOp     = 0.0;
 
@@ -166,8 +151,6 @@ class OperationController
                     $memeOperateur ? null : (int) $operateur['id_operateur']
                 );
 
-                // La commission inter-operateur est la portion ajoutee en plus du
-                // bareme de base (voir BaremeFraisModel::calculerFrais).
                 $commissionInterOp = $memeOperateur ? 0.0 : max(0.0, $fraisTransfertTotal - $fraisBase);
             }
 
@@ -186,13 +169,6 @@ class OperationController
         return $details;
     }
 
-    /**
-     * Effectue un transfert vers un ou plusieurs destinataires. Le montant total est
-     * divise a parts egales. Si $inclureFrais, chaque destinataire recoit en plus
-     * ses propres frais de retrait projetes (selon son operateur). Un transfert vers
-     * un operateur different doit avoir un seul destinataire et applique une
-     * commission inter-operateur en plus du bareme de transfert normal.
-     */
     public function effectuerTransfert(
         int $idClientExpediteur,
         int $idOperateurExpediteur,
@@ -252,9 +228,7 @@ class OperationController
 
             $idOperateurClientDestinataire = (int) $operateurDestinataire['id_operateur'];
 
-            // On trouve ou cree le compte du destinataire, quel que soit son operateur :
-            // sans compte reel, les pages operateur (commissions, comptes) ne peuvent pas
-            // rattacher l'operation a l'operateur destinataire.
+
             $destinataire = $this->clientModel->where('numero_telephone', $numero)->first();
 
             if (!$destinataire) {
@@ -367,7 +341,6 @@ class OperationController
         ];
     }
 
-    // --- Helpers internes ---
 
     private function trouverTranche(int $idOperateur, int $idTypeOperation, float $montant): ?array
     {

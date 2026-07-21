@@ -178,3 +178,139 @@ JOIN Operateur AS OperateurDest ON OperateurDest.id_operateur = Operation.id_ope
 WHERE statut_operation.libelle = 'reussie'
   AND TypeOperation.libelle = 'transfert'
   AND OperateurSource.id_operateur != OperateurDest.id_operateur;
+
+CREATE VIEW vue_historique_operations AS
+SELECT
+    o.id_operation,
+    o.id_type_operation,
+    o.id_statut,
+    o.montant,
+    o.frais_appliques,
+    o.date_operation,
+    o.id_compte_source,
+    o.id_compte_destination,
+
+    t.libelle AS type_libelle,
+    s.libelle AS statut_libelle,
+
+    cs.numero_telephone AS numero_source,
+    cs.nom AS nom_source,
+    cds.numero_telephone AS numero_destination,
+    cds.nom AS nom_destination,
+
+    os.id_operateur AS id_operateur_source,
+    os.nom AS nom_operateur_source,
+
+    od.id_operateur AS id_operateur_destination,
+    od.nom AS nom_operateur_destination
+
+FROM Operation o
+
+JOIN TypeOperation t
+ON t.id_type_operation = o.id_type_operation
+
+JOIN statut_operation s
+ON s.id_statut = o.id_statut
+
+LEFT JOIN Compte cps
+ON cps.id_compte = o.id_compte_source
+
+LEFT JOIN Client cs
+ON cs.id_client = cps.id_client
+
+LEFT JOIN Operateur os
+ON os.id_operateur = cs.id_operateur
+
+LEFT JOIN Compte cpd
+ON cpd.id_compte = o.id_compte_destination
+
+LEFT JOIN Client cds
+ON cds.id_client = cpd.id_client
+
+LEFT JOIN Operateur od
+ON od.id_operateur = cds.id_operateur;
+
+
+CREATE VIEW vue_commissions_inter_operateurs AS
+SELECT
+
+    os.id_operateur AS id_operateur_source,
+    os.nom AS nom_operateur_source,
+
+    od.id_operateur AS id_operateur_destination,
+    od.nom AS nom_operateur_dest,
+
+    o.id_operation,
+    o.date_operation,
+    o.montant,
+    o.frais_appliques
+
+FROM Operation o
+
+JOIN Compte cps
+ON cps.id_compte=o.id_compte_source
+
+JOIN Client cs
+ON cs.id_client=cps.id_client
+
+JOIN Operateur os
+ON os.id_operateur=cs.id_operateur
+
+JOIN Compte cpd
+ON cpd.id_compte=o.id_compte_destination
+
+JOIN Client cd
+ON cd.id_client=cpd.id_client
+
+JOIN Operateur od
+ON od.id_operateur=cd.id_operateur
+
+WHERE
+    o.id_type_operation=3
+AND o.id_statut=2
+AND os.id_operateur<>od.id_operateur;
+
+
+CREATE VIEW vue_operations_gains AS
+SELECT
+
+    o.id_operation,
+    o.id_type_operation,
+    t.libelle AS type_operation,
+
+    o.id_compte_source,
+    o.id_compte_destination,
+
+    os.id_operateur AS id_operateur_source,
+    od.id_operateur AS id_operateur_destination,
+
+    o.montant,
+    o.frais_appliques,
+    o.date_operation
+
+FROM Operation o
+
+JOIN TypeOperation t
+ON t.id_type_operation=o.id_type_operation
+
+LEFT JOIN Compte cps
+ON cps.id_compte=o.id_compte_source
+
+LEFT JOIN Client cs
+ON cs.id_client=cps.id_client
+
+LEFT JOIN Operateur os
+ON os.id_operateur=cs.id_operateur
+
+LEFT JOIN Compte cpd
+ON cpd.id_compte=o.id_compte_destination
+
+LEFT JOIN Client cd
+ON cd.id_client=cpd.id_client
+
+LEFT JOIN Operateur od
+ON od.id_operateur=cd.id_operateur
+
+WHERE
+    o.id_statut=2
+AND o.id_type_operation<>1;

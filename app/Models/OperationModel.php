@@ -37,49 +37,34 @@ class OperationModel extends Model
      * Historique des operations d'un client : toutes les operations ou son compte
      * est source (retrait, transfert envoye) ou destination (depot, transfert recu).
      */
-    public function getHistoriqueByClient(int $id_client, int $limite = 50): array
+    public function getHistoriqueByClient(int $idClient, int $limite = 50): array
     {
-        $db = \Config\Database::connect();
+        $db = db_connect();
 
-        $comptes = $db->table('Compte')->where('id_client', $id_client)->get()->getResultArray();
-        $idsComptes = array_column($comptes, 'id_compte');
+        $idsComptes = $db->table('Compte')
+            ->select('id_compte')
+            ->where('id_client', $idClient)
+            ->get()
+            ->getResultArray();
+
+        $idsComptes = array_column($idsComptes, 'id_compte');
 
         if (empty($idsComptes)) {
             return [];
         }
 
-        $resultats = $db->table('Operation')
-            ->select('
-                Operation.id_operation,
-                Operation.montant,
-                Operation.frais_appliques,
-                Operation.date_operation,
-                Operation.id_compte_source,
-                Operation.id_compte_destination,
-                TypeOperation.libelle AS type_libelle,
-                statut_operation.libelle AS statut_libelle,
-                ClientSource.numero_telephone AS numero_source,
-                ClientSource.nom AS nom_source,
-                ClientDestination.numero_telephone AS numero_destination,
-                ClientDestination.nom AS nom_destination
-            ')
-            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
-            ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
-            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
-            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
-            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination', 'left')
-            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client', 'left')
+        $resultats = $db->table('vue_historique_operations')
             ->groupStart()
-                ->whereIn('Operation.id_compte_source', $idsComptes)
-                ->orWhereIn('Operation.id_compte_destination', $idsComptes)
+                ->whereIn('id_compte_source', $idsComptes)
+                ->orWhereIn('id_compte_destination', $idsComptes)
             ->groupEnd()
-            ->orderBy('Operation.date_operation', 'DESC')
+            ->orderBy('date_operation', 'DESC')
             ->limit($limite)
             ->get()
             ->getResultArray();
 
         foreach ($resultats as &$op) {
-            $op['est_source'] = in_array($op['id_compte_source'], $idsComptes, true);
+            $op['est_source'] = in_array($op['id_compte_source'], $idsComptes);
         }
 
         return $resultats;
@@ -91,34 +76,13 @@ class OperationModel extends Model
      */
     public function getHistoriqueParCompte(int $idCompte, int $limite = 100): array
     {
-        $db = \Config\Database::connect();
-
-        return $db->table('Operation')
-            ->select('
-                Operation.id_operation,
-                Operation.montant,
-                Operation.frais_appliques,
-                Operation.date_operation,
-                Operation.id_compte_source,
-                Operation.id_compte_destination,
-                TypeOperation.libelle AS type_libelle,
-                statut_operation.libelle AS statut_libelle,
-                ClientSource.numero_telephone AS numero_source,
-                ClientSource.nom AS nom_source,
-                ClientDestination.numero_telephone AS numero_destination,
-                ClientDestination.nom AS nom_destination
-            ')
-            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
-            ->join('statut_operation', 'statut_operation.id_statut = Operation.id_statut')
-            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
-            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
-            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination', 'left')
-            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client', 'left')
+        return db_connect()
+            ->table('vue_historique_operations')
             ->groupStart()
-                ->where('Operation.id_compte_source', $idCompte)
-                ->orWhere('Operation.id_compte_destination', $idCompte)
+                ->where('id_compte_source', $idCompte)
+                ->orWhere('id_compte_destination', $idCompte)
             ->groupEnd()
-            ->orderBy('Operation.date_operation', 'DESC')
+            ->orderBy('date_operation', 'DESC')
             ->limit($limite)
             ->get()
             ->getResultArray();
@@ -135,80 +99,45 @@ class OperationModel extends Model
      */
     public function getMontantsAEnvoyer(?string $dateDebut = null, ?string $dateFin = null): array
     {
-        $db = \Config\Database::connect();
-
-        $builder = $db->table('Operation')
-            ->select('
-                OperateurSource.nom AS nom_operateur_source,
-                OperateurDestination.nom AS nom_operateur_dest,
-                COUNT(Operation.id_operation) AS nombre_transferts,
-                SUM(Operation.montant) AS montant_total,
-                SUM(Operation.frais_appliques) AS frais_total
-            ')
-            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source')
-            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client')
-            ->join('Operateur AS OperateurSource', 'OperateurSource.id_operateur = ClientSource.id_operateur')
-            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination')
-            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client')
-            ->join('Operateur AS OperateurDestination', 'OperateurDestination.id_operateur = ClientDestination.id_operateur')
-            ->where('Operation.id_type_operation', self::TYPE_TRANSFERT)
-            ->where('Operation.id_statut', self::STATUT_REUSSIE)
-            ->where('ClientDestination.id_operateur != ClientSource.id_operateur', null, false);
+        $builder = db_connect()
+            ->table('vue_commissions_inter_operateurs');
 
         if ($dateDebut) {
-            $builder->where('Operation.date_operation >=', $dateDebut . ' 00:00:00');
+            $builder->where('date_operation >=', $dateDebut . ' 00:00:00');
         }
 
         if ($dateFin) {
-            $builder->where('Operation.date_operation <=', $dateFin . ' 23:59:59');
+            $builder->where('date_operation <=', $dateFin . ' 23:59:59');
         }
 
         return $builder
-            ->groupBy('OperateurSource.nom, OperateurDestination.nom')
-            ->orderBy('OperateurSource.nom')
-            ->orderBy('OperateurDestination.nom')
+            ->select('
+                nom_operateur_source,
+                nom_operateur_dest,
+                COUNT(id_operation) AS nombre_transferts,
+                SUM(montant) AS montant_total,
+                SUM(frais_appliques) AS frais_total
+            ')
+            ->groupBy('nom_operateur_source, nom_operateur_dest')
             ->get()
             ->getResultArray();
     }
 
     public function getOperationsPourGains(?string $dateDebut = null, ?string $dateFin = null): array
     {
-        $db = \Config\Database::connect();
-
-        $builder = $db->table('Operation')
-            ->select('
-                Operation.id_operation,
-                Operation.id_type_operation,
-                Operation.id_compte_source,
-                Operation.id_compte_destination,
-                OperateurSource.id_operateur AS id_operateur_source,
-                OperateurDestination.id_operateur AS id_operateur_destination,
-                TypeOperation.libelle AS type_operation,
-                Operation.montant,
-                Operation.frais_appliques,
-                Operation.date_operation
-            ')
-            ->join('TypeOperation', 'TypeOperation.id_type_operation = Operation.id_type_operation')
-            ->join('Compte AS CompteSource', 'CompteSource.id_compte = Operation.id_compte_source', 'left')
-            ->join('Client AS ClientSource', 'ClientSource.id_client = CompteSource.id_client', 'left')
-            ->join('Operateur AS OperateurSource', 'OperateurSource.id_operateur = ClientSource.id_operateur', 'left')
-            ->join('Compte AS CompteDestination', 'CompteDestination.id_compte = Operation.id_compte_destination', 'left')
-            ->join('Client AS ClientDestination', 'ClientDestination.id_client = CompteDestination.id_client', 'left')
-            ->join('Operateur AS OperateurDestination', 'OperateurDestination.id_operateur = ClientDestination.id_operateur', 'left')
-            ->where('Operation.id_statut', self::STATUT_REUSSIE)
-            ->where('Operation.id_type_operation !=', self::TYPE_DEPOT);
+        $builder = db_connect()->table('vue_operations_gains');
 
         if ($dateDebut) {
-            $builder->where('Operation.date_operation >=', $dateDebut . ' 00:00:00');
+            $builder->where('date_operation >=', $dateDebut . ' 00:00:00');
         }
 
         if ($dateFin) {
-            $builder->where('Operation.date_operation <=', $dateFin . ' 23:59:59');
+            $builder->where('date_operation <=', $dateFin . ' 23:59:59');
         }
 
         return $builder
-            ->orderBy('Operation.date_operation', 'DESC')
-            ->orderBy('Operation.id_operation', 'DESC')
+            ->orderBy('date_operation', 'DESC')
+            ->orderBy('id_operation', 'DESC')
             ->get()
             ->getResultArray();
     }
