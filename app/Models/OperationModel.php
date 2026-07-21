@@ -125,7 +125,9 @@ class OperationModel extends Model
 
     public function getOperationsPourGains(?string $dateDebut = null, ?string $dateFin = null): array
     {
-        $builder = db_connect()->table('vue_operations_gains');
+        $db = \Config\Database::connect();
+
+        $builder = $db->table('vue_gains_operations');
 
         if ($dateDebut) {
             $builder->where('date_operation >=', $dateDebut . ' 00:00:00');
@@ -135,10 +137,6 @@ class OperationModel extends Model
             $builder->where('date_operation <=', $dateFin . ' 23:59:59');
         }
 
-        return $builder
-            ->orderBy('date_operation', 'DESC')
-            ->orderBy('id_operation', 'DESC')
-            ->get()
-            ->getResultArray();
+        return $builder->orderBy('date_operation', 'DESC')->get()->getResultArray();
     }
 }
